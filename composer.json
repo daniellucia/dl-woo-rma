@@ -1,0 +1,22 @@
+{
+    "name": "daniel-lucia/dl-woo-rma",
+    "description": "RMA Management for WooCommerce",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Daniel Lucia",
+            "email": "daniellucia84@gmail.com",
+            "homepage": "http://daniellucia.es"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DL\\RMA\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "autoloader-suffix": "DLRMA"
+    }
+}
