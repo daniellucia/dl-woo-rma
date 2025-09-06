@@ -14,8 +14,7 @@ class OrderStatus
      */
     public function getValidOrderStatuses(): array
     {
-        $order_statuses = $this->getAllOrderStatuses();
-        return get_option('dl_woo_rma_valid_order_statuses', ['wc-completed']);
+        return get_option('dl_woo_rma_valid_order_statuses', []);
     }
 
     /**
