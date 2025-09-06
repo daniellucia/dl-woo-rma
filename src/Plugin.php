@@ -24,6 +24,8 @@ class Plugin
 
         $endpoints = new Endpoints();
         add_filter('woocommerce_my_account_my_orders_actions', [$endpoints, 'add_rma_link'], 10, 2);
-        add_shortcode('rma_form', [$endpoints, 'render_rma_form']);
+
+        $form = new Form();
+        add_action('woocommerce_account_content', [$form, 'render'], 1);
     }
 }
