@@ -50,18 +50,10 @@ class Settings
                 if (!is_array($statuses)) {
                     return [];
                 }
-                return array_values(array_filter(array_map('sanitize_text_field', $statuss)));
+                return array_values(array_filter(array_map('sanitize_text_field', $statuses)));
             }
         ]);
-        register_setting('dl_woo_rma_group', 'dl_woo_rma_rules', [
-            'type' => 'array',
-            'sanitize_callback' => function($rules) {
-                if (!is_array($rules)) {
-                    return [];
-                }
-                return array_values(array_filter(array_map('sanitize_text_field', $rules)));
-            }
-        ]);
+        register_setting('dl_woo_rma_group', 'dl_woo_rma_rules');
     }
 
     /**
