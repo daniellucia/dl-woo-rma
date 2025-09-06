@@ -16,7 +16,7 @@ class Rules
     {
         $rules_raw = get_option('dl_woo_rma_rules', "15|Devolución\n60|Cambio\n1095|Garantía");
         echo '<pre>' . print_r($rules_raw, true) . '</pre>';
-        
+
         $rules = [];
         
         foreach (explode("\n", $rules_raw) as $rule) {
@@ -25,6 +25,8 @@ class Rules
                 $rules[] = $parts;
             }
         }
+
+        $rules = apply_filters('dl_woo_rma_get_rules', $rules);
 
         if (empty($rules)) {
             $rules = [['', '']];

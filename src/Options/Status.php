@@ -1,13 +1,14 @@
-<?php 
+<?php
 
 namespace DL\RMA\Options;
 
 defined('ABSPATH') || exit;
 
-class Status {
+class Status
+{
 
     private $default_statuses = ['Pending', 'Approved', 'Rejected', 'Received', 'Completed'];
-    
+
     /**
      * Obtiene los estados desde la opción, o los estados por defecto si no existen.
      * @return array
@@ -21,11 +22,12 @@ class Status {
             $statuses = array_filter(array_map('trim', explode("\n", $statuses)));
         }
 
+        $statuses = apply_filters('dl_woo_rma_get_statuses', $statuses);
+
         if (empty($statuses)) {
             $statuses = $this->default_statuses;
         }
 
         return $statuses;
-
     }
 }
