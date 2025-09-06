@@ -125,8 +125,33 @@ class Settings
                     '</div>'
                 );
             });
+
             $(document).on('click', '.dl-woo-rma-remove-rule', function(){
                 $(this).closest('.dl-woo-rma-rule-row').remove();
+            });
+
+            $('#dl-woo-rma-settings-form').on('submit', function(){
+                var rules = [];
+                $('#dl-woo-rma-rules-list .dl-woo-rma-rule-row').each(function(){
+                    var days = $(this).find('input[name="dl_woo_rma_rules_days[]"]').val();
+                    var action = $(this).find('input[name="dl_woo_rma_rules_action[]"]').val();
+                    if(days && action){
+                        rules.push(days + '|' + action);
+                    }
+                });
+                
+                if ($('#dl_woo_rma_rules_hidden').length) {
+                    $('#dl_woo_rma_rules_hidden').val(rules.join("\n"));
+                } else {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        id: 'dl_woo_rma_rules_hidden',
+                        name: 'dl_woo_rma_rules',
+                        value: rules.join("\n")
+                    }).appendTo('#dl-woo-rma-settings-form');
+                }
+                
+                $('textarea[name="dl_woo_rma_rules"]').prop('disabled', true);
             });
 
         });
