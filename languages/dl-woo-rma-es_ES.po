@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: RMA for WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-06 08:42+0000\n"
-"PO-Revision-Date: 2025-09-06 08:42+0000\n"
+"PO-Revision-Date: 2025-09-06 08:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: Español\n"
 "Language: es_ES\n"
@@ -15,75 +15,83 @@ msgstr ""
 "X-Loco-Version: 2.8.0; wp-6.8.2; php-8.1.29\n"
 "X-Domain: dl-woo-rma"
 
-#: src/Settings.php:89 src/Settings.php:123
+#: src/Settings.php:123
 msgid "Acción"
 msgstr ""
 
+#: src/Settings.php:89
+msgid "Action"
+msgstr "Acción"
+
 #: src/Settings.php:82 src/Settings.php:94
 msgid "Add new"
-msgstr ""
+msgstr "Añadir nuevo"
 
 #: src/Endpoints.php:49
 msgid "Available Action"
-msgstr ""
+msgstr "Acción disponible"
 
 #: src/Endpoints.php:45
 msgid "Comment"
-msgstr ""
+msgstr "Comentarios"
 
 #. Author of the plugin
 msgid "Daniel Lúcia"
-msgstr ""
+msgstr "Daniel Lúcia"
 
-#: src/Settings.php:88 src/Settings.php:122
-msgid "Días"
-msgstr ""
+#: src/Settings.php:88
+msgid "Days"
+msgstr "Días"
 
 #: src/Settings.php:78 src/Settings.php:90 src/Settings.php:108
 #: src/Settings.php:124
-msgid "Eliminar"
+msgid "Delete"
+msgstr "Quitar"
+
+#: src/Settings.php:122
+msgid "Días"
 msgstr ""
 
 #: src/Endpoints.php:65
-msgid "Generar RMA"
-msgstr ""
+msgid "Generate RMA"
+msgstr "Generar RMA"
 
 #. Author URI of the plugin
 msgid "http://www.daniellucia.es"
-msgstr ""
+msgstr "http://www.daniellucia.es"
 
 #: src/Endpoints.php:21
 msgid "Process RMA"
-msgstr ""
+msgstr "Procesar RMA"
 
 #: src/CPT.php:19 src/CPT.php:20 src/Settings.php:33
 msgid "RMA"
-msgstr ""
+msgstr "RMA"
 
 #. Name of the plugin
 msgid "RMA for WooCommerce"
-msgstr ""
+msgstr "RMA para WooCommerce"
 
 #. Description of the plugin
 msgid "RMA Management for WooCommerce"
-msgstr ""
+msgstr "Gestión de RMA para WooCommerce"
 
 #: src/Settings.php:68
 msgid "RMA options"
-msgstr ""
+msgstr "Opciones de RMA"
 
 #: src/Endpoints.php:41
 msgid "RMA Request for Order #%d"
-msgstr ""
+msgstr "Solicitud de RMA para el pedido #%d"
 
 #: src/Settings.php:32
 msgid "RMA Settings"
-msgstr ""
+msgstr "Ajustes RMA"
 
 #: src/Settings.php:73
 msgid "RMA States"
-msgstr ""
+msgstr "Estados RMA"
 
 #: src/Settings.php:84
 msgid "RMA Time Rules"
-msgstr ""
+msgstr "Normas de tiempo de RMA"

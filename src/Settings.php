@@ -119,8 +119,8 @@ class Settings
                 e.preventDefault();
                 $('#dl-woo-rma-rules-list').append(
                     '<div class="dl-woo-rma-rule-row" style="margin-bottom:6px;">' +
-                    '<input type="number" min="0" name="dl_woo_rma_rules_days[]" value="" style="width:80px;" placeholder="<?php esc_attr_e('Días', 'dl-woo-rma'); ?>" /> ' +
-                    '<input type="text" name="dl_woo_rma_rules_action[]" value="" style="width:200px;" placeholder="<?php esc_attr_e('Acción', 'dl-woo-rma'); ?>" /> ' +
+                    '<input type="number" min="0" name="dl_woo_rma_rules_days[]" value="" style="width:80px;" placeholder="<?php esc_attr_e('Days', 'dl-woo-rma'); ?>" /> ' +
+                    '<input type="text" name="dl_woo_rma_rules_action[]" value="" style="width:200px;" placeholder="<?php esc_attr_e('Action', 'dl-woo-rma'); ?>" /> ' +
                     '<button type="button" class="button dl-woo-rma-remove-rule" title="<?php esc_attr_e('Delete', 'dl-woo-rma'); ?>">-</button>' +
                     '</div>'
                 );
