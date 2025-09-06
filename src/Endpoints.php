@@ -34,7 +34,9 @@ class Endpoints
         if (!isset($_GET['rma'])) return '';
         $order_id = intval($_GET['rma']);
         $order = wc_get_order($order_id);
-        if (!$order) return '<p>Pedido no válido.</p>';
+        if (!$order) {
+            return '<p>' . __('Invalid order.', 'dl-woo-rma') . '</p>';
+        }
 
         ob_start();
         ?>
