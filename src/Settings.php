@@ -3,16 +3,21 @@
 namespace DL\RMA;
 
 use DL\RMA\Options\Status;
+use DL\RMA\Options\Rules;
 
 defined('ABSPATH') || exit;
 
 class Settings
 {
     private $statuses;
+    private $rules;
 
     public function __construct() {
         $status = new Status;
         $this->statuses = $status->getStatuses();
+
+        $rules = new Rules;
+        $this->rules = $rules->getRules();
     }
 
     /**
@@ -75,14 +80,24 @@ class Settings
                 <button type="button" class="button" id="dl-woo-rma-add-state"><?php _e('Añadir nuevo', 'dl-woo-rma'); ?></button>
 
                 <h2><?php _e('RMA Time Rules', 'dl-woo-rma'); ?></h2>
-                <textarea name="dl_woo_rma_rules" rows="5" cols="50"><?php echo esc_textarea(get_option('dl_woo_rma_rules', "15|Devolución\n60|Cambio\n1095|Garantía")); ?></textarea>
-                <p class="description"><?php _e('Format: days|action (one per line)', 'dl-woo-rma'); ?></p>
-
+                <div id="dl-woo-rma-rules-list">
+                    <?php foreach ($this->rules as $rule): ?>
+                        <div class="dl-woo-rma-rule-row" style="margin-bottom:6px;">
+                            <input type="number" min="0" name="dl_woo_rma_rules_days[]" value="<?php echo esc_attr($rule[0]); ?>" style="width:80px;" placeholder="<?php esc_attr_e('Días', 'dl-woo-rma'); ?>" />
+                            <input type="text" name="dl_woo_rma_rules_action[]" value="<?php echo esc_attr($rule[1]); ?>" style="width:200px;" placeholder="<?php esc_attr_e('Acción', 'dl-woo-rma'); ?>" />
+                            <button type="button" class="button dl-woo-rma-remove-rule" title="<?php esc_attr_e('Eliminar', 'dl-woo-rma'); ?>">-</button>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <button type="button" class="button" id="dl-woo-rma-add-rule"><?php _e('Añadir nuevo', 'dl-woo-rma'); ?></button>
+                
                 <?php submit_button(); ?>
             </form>
         </div>
         <script>
         jQuery(function($){
+
+            //Estados
             $('#dl-woo-rma-add-state').on('click', function(e){
                 e.preventDefault();
                 $('#dl-woo-rma-states-list').append(
@@ -92,9 +107,26 @@ class Settings
                     '</div>'
                 );
             });
+
             $(document).on('click', '.dl-woo-rma-remove-state', function(){
                 $(this).closest('.dl-woo-rma-state-row').remove();
             });
+
+            // Reglas
+            $('#dl-woo-rma-add-rule').on('click', function(e){
+                e.preventDefault();
+                $('#dl-woo-rma-rules-list').append(
+                    '<div class="dl-woo-rma-rule-row" style="margin-bottom:6px;">' +
+                    '<input type="number" min="0" name="dl_woo_rma_rules_days[]" value="" style="width:80px;" placeholder="<?php esc_attr_e('Días', 'dl-woo-rma'); ?>" /> ' +
+                    '<input type="text" name="dl_woo_rma_rules_action[]" value="" style="width:200px;" placeholder="<?php esc_attr_e('Acción', 'dl-woo-rma'); ?>" /> ' +
+                    '<button type="button" class="button dl-woo-rma-remove-rule" title="<?php esc_attr_e('Eliminar', 'dl-woo-rma'); ?>">-</button>' +
+                    '</div>'
+                );
+            });
+            $(document).on('click', '.dl-woo-rma-remove-rule', function(){
+                $(this).closest('.dl-woo-rma-rule-row').remove();
+            });
+
         });
         </script>
         <?php
