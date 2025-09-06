@@ -2,6 +2,8 @@
 
 namespace DL\RMA;
 
+use DL\RMA\Options\OrderStatus;
+
 defined('ABSPATH') || exit;
 
 class Plugin
@@ -27,5 +29,8 @@ class Plugin
 
         $form = new Form();
         add_action('woocommerce_account_content', [$form, 'render'], 1);
+
+        $orderStatus = new OrderStatus();
+        add_filter('dl_woo_rma_is_valid_order_for_rma', [$orderStatus, 'checkOrderStatusForRma'], 10, 2);
     }
 }
