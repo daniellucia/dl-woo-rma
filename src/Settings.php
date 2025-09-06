@@ -2,6 +2,7 @@
 
 namespace DL\RMA;
 
+use DL\RMA\Options\OrderStatus;
 use DL\RMA\Options\Status;
 use DL\RMA\Options\Rules;
 
@@ -11,6 +12,8 @@ class Settings
 {
     private $statuses;
     private $rules;
+    private $order_statuses;
+    private $valid_statuses;
 
     public function __construct() {
         $status = new Status;
@@ -18,6 +21,11 @@ class Settings
 
         $rules = new Rules;
         $this->rules = $rules->getRules();
+
+        $orderStatus = new OrderStatus();
+        $this->order_statuses = $orderStatus->getAllOrderStatuses();
+        $this->valid_statuses = $orderStatus->getValidOrderStatuses();
+
     }
 
     /**
@@ -44,6 +52,7 @@ class Settings
      */
     public function register_settings()
     {
+        
         register_setting('dl_woo_rma_group', 'dl_woo_rma_states', [
             'type' => 'array',
             'sanitize_callback' => function($statuses) {
@@ -53,7 +62,16 @@ class Settings
                 return array_values(array_filter(array_map('sanitize_text_field', $statuses)));
             }
         ]);
+
         register_setting('dl_woo_rma_group', 'dl_woo_rma_rules');
+
+        register_setting('dl_woo_rma_group', 'dl_woo_rma_valid_order_statuses', [
+            'type' => 'array',
+            'sanitize_callback' => function($statuses) {
+                if (!is_array($statuses)) return [];
+                return array_values(array_filter(array_map('sanitize_text_field', $statuses)));
+            }
+        ]);
     }
 
     /**
@@ -93,6 +111,16 @@ class Settings
                 </div>
                 <button type="button" class="button" id="dl-woo-rma-add-rule"><?php _e('Add new', 'dl-woo-rma'); ?></button>
                 
+                <h2><?php _e('Estados de pedido válidos para devolución', 'dl-woo-rma'); ?></h2>
+                <div id="dl-woo-rma-valid-statuses-list" style="margin-bottom:16px;">
+                    <?php foreach ($this->order_statuses as $status_key => $status_label): ?>
+                        <label style="display:inline-block;margin-right:18px;">
+                            <input type="checkbox" name="dl_woo_rma_valid_order_statuses[]" value="<?php echo esc_attr($status_key); ?>" <?php checked(in_array($status_key, $this->valid_statuses)); ?> />
+                            <?php echo esc_html($status_label); ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+
                 <?php submit_button(); ?>
             </form>
         </div>

@@ -16,10 +16,12 @@ class Endpoints
     {
         $order_id = $order->get_id();
         $url = add_query_arg(['rma' => $order_id], wc_get_account_endpoint_url('orders'));
+        
         $actions['rma'] = [
             'url'  => $url,
             'name' => __('Process RMA', 'dl-woo-rma')
         ];
+
         return $actions;
     }
 
