@@ -15,7 +15,6 @@ class Rules
     public function getRules(): array
     {
         $rules_raw = get_option('dl_woo_rma_rules', "15|Devolución\n60|Cambio\n1095|Garantía");
-        echo '<pre>' . print_r($rules_raw, true) . '</pre>';
 
         $rules = [];
         
