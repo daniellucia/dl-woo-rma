@@ -79,7 +79,7 @@ class Settings
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <button type="button" class="button" id="dl-woo-rma-add-state"><?php _e('Añadir nuevo', 'dl-woo-rma'); ?></button>
+                <button type="button" class="button" id="dl-woo-rma-add-state"><?php _e('Add new', 'dl-woo-rma'); ?></button>
 
                 <h2><?php _e('RMA Time Rules', 'dl-woo-rma'); ?></h2>
                 <div id="dl-woo-rma-rules-list">
@@ -91,7 +91,7 @@ class Settings
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <button type="button" class="button" id="dl-woo-rma-add-rule"><?php _e('Añadir nuevo', 'dl-woo-rma'); ?></button>
+                <button type="button" class="button" id="dl-woo-rma-add-rule"><?php _e('Add new', 'dl-woo-rma'); ?></button>
                 
                 <?php submit_button(); ?>
             </form>
