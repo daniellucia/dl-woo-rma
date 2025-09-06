@@ -62,7 +62,7 @@ class Endpoints
                 </select>
             </p>
             <p>
-                <button type="submit" name="rma_submit" class="button"><?php _e('Generar RMA', 'dl-woo-rma'); ?></button>
+                <button type="submit" name="rma_submit" class="button"><?php _e('Generate RMA', 'dl-woo-rma'); ?></button>
             </p>
         </form>
         <?php

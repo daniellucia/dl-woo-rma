@@ -75,7 +75,7 @@ class Settings
                     <?php foreach ($this->statuses as $i => $status): ?>
                         <div class="dl-woo-rma-state-row" style="margin-bottom:6px;">
                             <input type="text" name="dl_woo_rma_states[]" value="<?php echo esc_attr($status); ?>" style="width:300px;" />
-                            <button type="button" class="button dl-woo-rma-remove-state" title="<?php esc_attr_e('Eliminar', 'dl-woo-rma'); ?>">-</button>
+                            <button type="button" class="button dl-woo-rma-remove-state" title="<?php esc_attr_e('Delete', 'dl-woo-rma'); ?>">-</button>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -85,9 +85,9 @@ class Settings
                 <div id="dl-woo-rma-rules-list">
                     <?php foreach ($this->rules as $rule): ?>
                         <div class="dl-woo-rma-rule-row" style="margin-bottom:6px;">
-                            <input type="number" min="0" name="dl_woo_rma_rules_days[]" value="<?php echo esc_attr($rule[0]); ?>" style="width:80px;" placeholder="<?php esc_attr_e('Días', 'dl-woo-rma'); ?>" />
-                            <input type="text" name="dl_woo_rma_rules_action[]" value="<?php echo esc_attr($rule[1]); ?>" style="width:200px;" placeholder="<?php esc_attr_e('Acción', 'dl-woo-rma'); ?>" />
-                            <button type="button" class="button dl-woo-rma-remove-rule" title="<?php esc_attr_e('Eliminar', 'dl-woo-rma'); ?>">-</button>
+                            <input type="number" min="0" name="dl_woo_rma_rules_days[]" value="<?php echo esc_attr($rule[0]); ?>" style="width:80px;" placeholder="<?php esc_attr_e('Days', 'dl-woo-rma'); ?>" />
+                            <input type="text" name="dl_woo_rma_rules_action[]" value="<?php echo esc_attr($rule[1]); ?>" style="width:200px;" placeholder="<?php esc_attr_e('Action', 'dl-woo-rma'); ?>" />
+                            <button type="button" class="button dl-woo-rma-remove-rule" title="<?php esc_attr_e('Delete', 'dl-woo-rma'); ?>">-</button>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -105,7 +105,7 @@ class Settings
                 $('#dl-woo-rma-states-list').append(
                     '<div class="dl-woo-rma-state-row" style="margin-bottom:6px;">' +
                     '<input type="text" name="dl_woo_rma_states[]" value="" style="width:300px;" /> ' +
-                    '<button type="button" class="button dl-woo-rma-remove-state" title="<?php esc_attr_e('Eliminar', 'dl-woo-rma'); ?>">-</button>' +
+                    '<button type="button" class="button dl-woo-rma-remove-state" title="<?php esc_attr_e('Delete', 'dl-woo-rma'); ?>">-</button>' +
                     '</div>'
                 );
             });
@@ -121,7 +121,7 @@ class Settings
                     '<div class="dl-woo-rma-rule-row" style="margin-bottom:6px;">' +
                     '<input type="number" min="0" name="dl_woo_rma_rules_days[]" value="" style="width:80px;" placeholder="<?php esc_attr_e('Días', 'dl-woo-rma'); ?>" /> ' +
                     '<input type="text" name="dl_woo_rma_rules_action[]" value="" style="width:200px;" placeholder="<?php esc_attr_e('Acción', 'dl-woo-rma'); ?>" /> ' +
-                    '<button type="button" class="button dl-woo-rma-remove-rule" title="<?php esc_attr_e('Eliminar', 'dl-woo-rma'); ?>">-</button>' +
+                    '<button type="button" class="button dl-woo-rma-remove-rule" title="<?php esc_attr_e('Delete', 'dl-woo-rma'); ?>">-</button>' +
                     '</div>'
                 );
             });
