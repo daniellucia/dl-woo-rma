@@ -196,6 +196,7 @@ class Settings
     {
         if (is_account_page() && isset($_GET['rma'])) {
             remove_action('woocommerce_account_orders_endpoint', 'woocommerce_account_orders', 10);
+            remove_action( 'woocommerce_account_content', 'woocommerce_account_content' );
         }
     }
 }
