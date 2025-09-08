@@ -186,4 +186,16 @@ class Settings
         </script>
         <?php
     }
+
+    /**
+     * Quitamos el listado de pedidos si estamos en proceso de RMA
+     * @return void
+     * @author Daniel Lucia
+     */
+    public function maybe_hide_orders_list()
+    {
+        if (is_account_page() && isset($_GET['rma'])) {
+            remove_action('woocommerce_account_orders_endpoint', 'woocommerce_account_orders', 10);
+        }
+    }
 }

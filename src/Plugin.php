@@ -23,6 +23,7 @@ class Plugin
         $settings = new Settings();
         add_action('admin_menu', [$settings, 'add_settings_page']);
         add_action('admin_init', [$settings, 'register_settings']);
+        add_action('template_redirect', [$settings, 'maybe_hide_orders_list']);
 
         $endpoints = new Endpoints();
         add_filter('woocommerce_my_account_my_orders_actions', [$endpoints, 'add_rma_link'], 10, 2);
