@@ -29,7 +29,7 @@ class Plugin
         add_filter('woocommerce_my_account_my_orders_actions', [$endpoints, 'add_rma_link'], 10, 2);
 
         $form = new Form();
-        add_action('woocommerce_account_content', [$form, 'render'], 1);
+        add_action('woocommerce_account_content', [$form, 'render'], 20);
 
         $orderStatus = new OrderStatus();
         add_filter('dl_woo_rma_is_valid_order_for_rma', [$orderStatus, 'checkOrderStatusForRma'], 10, 2);
