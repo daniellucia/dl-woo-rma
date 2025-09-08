@@ -17,6 +17,7 @@ defined('ABSPATH') || exit;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+define('DL_WOO_RMA_VERSION', '0.0.1');
 define('DL_WOO_RMA_PATH', plugin_dir_path(__FILE__));
 define('DL_WOO_RMA_URL', plugin_dir_url(__FILE__));
 

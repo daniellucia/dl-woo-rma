@@ -32,5 +32,24 @@ class Plugin
 
         $orderStatus = new OrderStatus();
         add_filter('dl_woo_rma_is_valid_order_for_rma', [$orderStatus, 'checkOrderStatusForRma'], 10, 2);
+
+        // Encolar CSS del plugin
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_styles']);
+    }
+
+
+    /**
+     * Encolamos los estilos del plugin
+     * @return void
+     * @author Daniel Lucia
+     */
+    public function enqueue_styles(): void
+    {
+        wp_enqueue_style(
+            'dl-woo-rma',
+            plugins_url('../assets/css/dl-woo-rma.css', __FILE__),
+            [],
+            DL_WOO_RMA_VERSION
+        );
     }
 }

@@ -72,7 +72,7 @@ class Form
     {
         ob_start();
         ?>
-        <form method="get">
+        <form method="get" class="dl-form-rma">
             <?php wp_nonce_field('dl_woo_rma_step1', 'dl_woo_rma_nonce_step1'); ?>
             <input type="hidden" name="rma" value="<?php echo esc_attr($order->get_id()); ?>" />
 
@@ -114,7 +114,7 @@ class Form
     {
         ob_start();
         ?>
-        <form method="get">
+        <form method="get" class="dl-form-rma">
             <?php wp_nonce_field('dl_woo_rma_step2', 'dl_woo_rma_nonce_step2'); ?>
             <input type="hidden" name="rma_step" value="2" />
             <input type="hidden" name="rma" value="<?php echo esc_attr($order->get_id()); ?>" />
