@@ -73,6 +73,9 @@ class Form
         ob_start();
         ?>
         <form method="get" class="dl-form-rma">
+
+            <?php do_action('dl_woo_rma_before_product_selection', $order); ?>
+
             <?php wp_nonce_field('dl_woo_rma_step1', 'dl_woo_rma_nonce_step1'); ?>
             <input type="hidden" name="rma" value="<?php echo esc_attr($order->get_id()); ?>" />
 
@@ -96,8 +99,12 @@ class Form
                 }
                 ?>
             </p>
+            
+            <?php do_action('dl_woo_rma_after_product_selection', $order); ?>
+
             <input type="hidden" name="rma_step" value="2" />
             <button type="submit" class="woocommerce-button wp-element-button button"><?php _e('Siguiente', 'dl-woo-rma'); ?></button>
+
         </form>
         <?php
         return ob_get_clean();
@@ -115,6 +122,9 @@ class Form
         ob_start();
         ?>
         <form method="get" class="dl-form-rma">
+
+            <?php do_action('dl_woo_rma_before_action_selection', $order, $selected_products); ?>
+
             <?php wp_nonce_field('dl_woo_rma_step2', 'dl_woo_rma_nonce_step2'); ?>
             <input type="hidden" name="rma_step" value="2" />
             <input type="hidden" name="rma" value="<?php echo esc_attr($order->get_id()); ?>" />
@@ -143,7 +153,10 @@ class Form
                 <label><?php _e('Comment', 'dl-woo-rma'); ?></label>
                 <textarea name="rma_comment" class="input-text"></textarea>
             </p>
+
+            <?php do_action('dl_woo_rma_after_action_selection', $order, $selected_products); ?>
             <button type="submit" name="rma_submit" class="woocommerce-button wp-element-button button"><?php _e('Generate RMA', 'dl-woo-rma'); ?></button>
+
         </form>
         <?php
         return ob_get_clean();
