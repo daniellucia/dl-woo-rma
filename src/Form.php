@@ -162,6 +162,13 @@ class Form
         return ob_get_clean();
     }
 
+    /**
+     * Valida el nonce para seguridad
+     * @param mixed $nonce
+     * @param mixed $action
+     * @return bool
+     * @author Daniel Lucia
+     */
     private function validate_nonce($nonce, $action) {
         if (!isset($nonce) || !wp_verify_nonce($nonce, $action)) {
             return false;
