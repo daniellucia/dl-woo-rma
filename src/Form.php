@@ -7,7 +7,7 @@ defined('ABSPATH') || exit;
 class Form
 {
     /**
-     * Renderiza el formulario de RMA
+     * Renderiza el formulario de RMA en pasos
      * @param array $atts
      * @return string
      * @author Daniel Lucia
@@ -17,9 +17,8 @@ class Form
         if (!isset($_GET['rma'])) {
             return '';
         }
-        
+ 
         $order_id = intval($_GET['rma']);
-
         if ($order_id <= 0) {
             return '';
         }
@@ -29,27 +28,66 @@ class Form
             return '<p>' . __('Invalid order.', 'dl-woo-rma') . '</p>';
         }
 
-        ?>
-        <h2><?php printf(__('RMA Request for Order #%d', 'dl-woo-rma'), $order_id); ?></h2>
+        // Paso actual
+        $step = isset($_GET['rma_step']) ? intval($_GET['rma_step']) : 1;
 
-        <form method="post">
+        echo '<h2>' . sprintf(__('RMA Request for Order #%d', 'dl-woo-rma'), $order_id) . '</h2>';
+
+        if ($step === 1) {
+
+            echo $this->render_product_selection_step($order);
+
+        } elseif ($step === 2 && !empty($_GET['rma_products'])) {
+            
+            if (!$this->validate_nonce($_GET['dl_woo_rma_nonce_step1'], 'dl_woo_rma_step1')) {
+                return '<p style="color:red;">' . __('Security check failed. Please try again.', 'dl-woo-rma') . '</p>';
+            }
+
+            $selected_products = array_map('intval', (array)$_GET['rma_products']);
+            echo $this->render_action_step($order, $selected_products);
+
+        } elseif ($step === 2 && isset($_GET['rma_submit'])) {
+            
+            if (!$this->validate_nonce($_GET['dl_woo_rma_nonce_step2'], 'dl_woo_rma_step2')) {
+                return '<p style="color:red;">' . __('Security check failed. Please try again.', 'dl-woo-rma') . '</p>';
+            }
+            
+        } else {
+            
+            echo $this->render_product_selection_step($order, true);
+
+        }
+
+        return '';
+    }
+
+    /**
+     * Paso 1: Selección de productos
+     * @param mixed $order
+     * @param mixed $error
+     * @return bool|string
+     * @author Daniel Lucia
+     */
+    private function render_product_selection_step($order, $error = false)
+    {
+        ob_start();
+        ?>
+        <form method="get">
+            <?php wp_nonce_field('dl_woo_rma_step1', 'dl_woo_rma_nonce_step1'); ?>
+            <input type="hidden" name="rma" value="<?php echo esc_attr($order->get_id()); ?>" />
+
+            <?php if ($error): ?>
+                <p class="dl-error-product-empty"><?php _e('You must select at least one product.', 'dl-woo-rma'); ?></p>
+            <?php endif; ?>
 
             <p class="form-row">
                 <label><?php _e('Select the products you wish to process:', 'dl-woo-rma'); ?></label>
                 <?php
                 foreach ($order->get_items() as $item_id => $item) {
-
-                    if (!is_a($item, 'WC_Order_Item_Product')) {
-                        continue;
-                    }
-                    
+                    if (!is_a($item, 'WC_Order_Item_Product')) continue;
                     $product = $item->get_product();
-                    if (!$product) { 
-                        continue;
-                    }
-
+                    if (!$product) continue;
                     $product_name = $product->get_name();
-                    $product_id = $product->get_id();
                     $qty = $item->get_quantity();
                     echo '<label style="display:block;margin-bottom:4px;">';
                         echo '<input type="checkbox" name="rma_products[]" value="' . esc_attr($item_id) . '"> ';
@@ -58,7 +96,33 @@ class Form
                 }
                 ?>
             </p>
+            <input type="hidden" name="rma_step" value="2" />
+            <button type="submit" class="woocommerce-button wp-element-button button"><?php _e('Siguiente', 'dl-woo-rma'); ?></button>
+        </form>
+        <?php
+        return ob_get_clean();
+    }
 
+    /**
+     * Paso 2: Acción y comentarios
+     * @param mixed $order
+     * @param mixed $selected_products
+     * @return bool|string
+     * @author Daniel Lucia
+     */
+    private function render_action_step($order, $selected_products)
+    {
+        ob_start();
+        ?>
+        <form method="get">
+            <?php wp_nonce_field('dl_woo_rma_step2', 'dl_woo_rma_nonce_step2'); ?>
+            <input type="hidden" name="rma_step" value="2" />
+            <input type="hidden" name="rma" value="<?php echo esc_attr($order->get_id()); ?>" />
+            <?php
+            foreach ($selected_products as $item_id) {
+                echo '<input type="hidden" name="rma_products[]" value="' . esc_attr($item_id) . '" />';
+            }
+            ?>
             <p class="form-row">
                 <label><?php _e('Available Action', 'dl-woo-rma'); ?></label>
                 <select name="rma_action">
@@ -75,20 +139,20 @@ class Form
                     ?>
                 </select>
             </p>
-
             <p class="form-row">
                 <label><?php _e('Comment', 'dl-woo-rma'); ?></label>
-                <textarea name="rma_comment" required class="input-text"></textarea>
+                <textarea name="rma_comment" class="input-text"></textarea>
             </p>
-
-            <p class="form-row">
-                <button type="submit" name="rma_submit" class="woocommerce-button wp-element-button button"><?php _e('Generate RMA', 'dl-woo-rma'); ?></button>
-            </p>
-            
+            <button type="submit" name="rma_submit" class="woocommerce-button wp-element-button button"><?php _e('Generate RMA', 'dl-woo-rma'); ?></button>
         </form>
         <?php
+        return ob_get_clean();
+    }
 
-        return '';
-
+    private function validate_nonce($nonce, $action) {
+        if (!isset($nonce) || !wp_verify_nonce($nonce, $action)) {
+            return false;
+        }
+        return true;
     }
 }
