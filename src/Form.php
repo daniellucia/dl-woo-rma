@@ -120,6 +120,9 @@ class Form
     private function render_action_step($order, $selected_products)
     {
         ob_start();
+
+        $selected_products = apply_filters('dl_woo_rma_validate_selected_products', $selected_products, $order);
+        
         ?>
         <form method="get" class="dl-form-rma">
 
