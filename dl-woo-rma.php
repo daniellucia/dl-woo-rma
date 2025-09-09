@@ -7,7 +7,7 @@
  * Author: Daniel Lúcia
  * Author URI: http://www.daniellucia.es
  * textdomain: dl-woo-rma
- * Requires Plugins: WooCommerce
+ * Requires Plugins: woocommerce
  */
 
 use DL\RMA\CPT;
