@@ -46,12 +46,25 @@ class Form
             $selected_products = array_map('intval', (array)$_GET['rma_products']);
             echo $this->render_action_step($order, $selected_products);
 
-        } elseif ($step === 2 && isset($_GET['rma_submit'])) {
+        } elseif ($step === 3 && isset($_GET['rma_submit'])) {
             
-            if (!$this->validate_nonce($_GET['dl_woo_rma_nonce_step2'], 'dl_woo_rma_step2')) {
+            if (!$this->validate_nonce($_GET['dl_woo_rma_nonce_step3'], 'dl_woo_rma_step3')) {
                 return '<p style="color:red;">' . __('Security check failed. Please try again.', 'dl-woo-rma') . '</p>';
             }
-            
+
+            $rma = new RMA();
+            $selected_products = isset($_GET['rma_products']) ? array_map('intval', (array)$_GET['rma_products']) : [];
+            $order_id = $order->get_id();
+            $customer_id = $order->get_customer_id();
+            $reason = isset($_GET['rma_action']) ? sanitize_text_field($_GET['rma_action']) : '';
+            $comments = isset($_GET['rma_comment']) ? sanitize_textarea_field($_GET['rma_comment']) : '';
+
+            foreach($selected_products as $product_id) {
+                $rma_id = $rma->create($order_id, $customer_id, $product_id, $reason, $comments);
+            }
+
+            echo '<p>' . __('Your RMA request has been submitted successfully.', 'dl-woo-rma') . '</p>';
+
         } else {
             
             echo $this->render_product_selection_step($order, true);
@@ -128,8 +141,8 @@ class Form
 
             <?php do_action('dl_woo_rma_before_action_selection', $order, $selected_products); ?>
 
-            <?php wp_nonce_field('dl_woo_rma_step2', 'dl_woo_rma_nonce_step2'); ?>
-            <input type="hidden" name="rma_step" value="2" />
+            <?php wp_nonce_field('dl_woo_rma_step3', 'dl_woo_rma_nonce_step3'); ?>
+            <input type="hidden" name="rma_step" value="3" />
             <input type="hidden" name="rma" value="<?php echo esc_attr($order->get_id()); ?>" />
             <?php
             foreach ($selected_products as $item_id) {
