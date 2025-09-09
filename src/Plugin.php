@@ -19,6 +19,8 @@ class Plugin
 
         $cpt = new CPT();
         add_action('init', [$cpt, 'register']);
+        add_action('add_meta_boxes', [$cpt, 'add_rma_meta_boxes']);
+        add_action('save_post_rma', [$cpt, 'save_rma_meta_boxes']);
 
         $settings = new Settings();
         add_action('admin_menu', [$settings, 'add_settings_page']);
