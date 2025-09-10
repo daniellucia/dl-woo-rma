@@ -16,14 +16,15 @@ class RMA
 
     /**
      * Crear una nueva solicitud de RMA
-     * @param mixed $order_id
-     * @param mixed $customer_id
-     * @param mixed $products
-     * @param mixed $reason
-     * @param mixed $comments
+     * @param int $order_id
+     * @param int $customer_id
+     * @param int $product_id
+     * @param string $reason
+     * @param string $comments
+     * @return int ID de la solicitud de RMA creada o 0 si ya existe
      * @author Daniel Lucia
      */
-    public function create($order_id, $customer_id, $product_id, $reason, $comments)
+    public function create(int $order_id, int $customer_id, int $product_id, string $reason, string $comments):int
     {
 
         if ($this->exists($order_id, $product_id, $customer_id)) {
@@ -62,7 +63,7 @@ class RMA
      * @return bool
      * @author Daniel Lucia
      */
-    public function exists(int $order_id, int $product_id, int $customer_id) {
+    public function exists(int $order_id, int $product_id, int $customer_id): bool {
         $args = [
             'post_type'   => 'rma',
             'post_status' => 'any',
