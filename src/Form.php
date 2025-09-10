@@ -61,9 +61,12 @@ class Form
 
             foreach($selected_products as $product_id) {
                 $rma_id = $rma->create($order_id, $customer_id, $product_id, $reason, $comments);
+                if ($rma_id === 0) {
+                    echo '<p style="color:red;">' . __('An RMA request for one of the selected products already exists.', 'dl-woo-rma') . '</p>';
+                } else {
+                    echo '<p>' . sprintf(__('RMA request created for product ID %d with RMA ID %d.', 'dl-woo-rma'), $product_id, $rma_id) . '</p>';
+                }
             }
-
-            echo '<p>' . __('Your RMA request has been submitted successfully.', 'dl-woo-rma') . '</p>';
 
         } else {
             
