@@ -48,6 +48,50 @@ class RMA
     }
 
     /**
+     * Carga las solicitudes de RMA por ID de pedido
+     * @param int $order_id
+     * @param int $customer_id
+     * @return RMA[]
+     * @author Daniel Lucia
+     */
+    public function loadByOrderId(int $order_id, int $customer_id = 0): array
+    {
+        $ids_rma = [];
+
+        $args = [
+            'post_type'   => 'rma',
+            'post_status' => 'any',
+            'fields'      => 'ids',
+            'numberposts' => 1,
+            'meta_query'  => [
+                [
+                    'key'     => '_rma_order_id',
+                    'value'   => $order_id,
+                    'compare' => '=',
+                ],
+            ],
+        ];
+
+        if ($customer_id > 0) {
+            $args['meta_query'][] = [
+                'key'     => '_rma_customer_id',
+                'value'   => $customer_id,
+                'compare' => '=',
+            ];
+        }
+
+        $posts = get_posts($args);
+
+        if (!empty($posts)) {
+            foreach ($posts as $post_id) {
+                $ids_rma[] = new RMA($post_id);
+            }
+        }
+
+        return $ids_rma;
+    }
+
+    /**
      * Crear una nueva solicitud de RMA
      * @param int $order_id
      * @param int $customer_id
@@ -150,5 +194,24 @@ class RMA
     public function getStatuses(): array
     {
         return $this->statuses;
+    }
+
+    /**
+     * Obtiene la etiqueta del estado actual de la RMA
+     * @return string
+     * @author Daniel Lucia
+     */
+    public function getLabelStatus(): string
+    {
+        $status = $this->status;
+
+        $labels = [
+            'pending'  => __('Pending', 'dl-woo-rma'),
+            'approved' => __('Approved', 'dl-woo-rma'),
+            'rejected' => __('Rejected', 'dl-woo-rma'),
+            'completed'=> __('Completed', 'dl-woo-rma'),
+        ];
+
+        return $labels[$status] ?? __('Unknown', 'dl-woo-rma');
     }
 }

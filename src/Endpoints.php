@@ -12,6 +12,8 @@ class Endpoints
     {
         $this->rma = new RMA();
         add_filter('dl_woo_rma_is_valid_order_for_rma', [$this, 'check_order'], 10, 3);
+        add_filter('woocommerce_account_orders_columns', [$this, 'add_account_orders_columns'], 20, 1);
+        add_action('woocommerce_my_account_my_orders_column_rma-status', [$this, 'rma_status_column'], 10, 1);
     }
 
     /**
@@ -26,11 +28,11 @@ class Endpoints
         $customer_id = get_current_user_id();
         $url = add_query_arg(['rma' => $order_id], wc_get_account_endpoint_url('orders'));
         $valid_order = apply_filters('dl_woo_rma_is_valid_order_for_rma', true, $order, $customer_id);
-        
+
         if (!$valid_order) {
             return $actions;
-        } 
-        
+        }
+
         $actions['rma'] = [
             'url'  => $url,
             'name' => __('Process RMA', 'dl-woo-rma')
@@ -46,7 +48,8 @@ class Endpoints
      * @return bool
      * @author Daniel Lucia
      */
-    public function check_order($valid, $order, $customer_id) {
+    public function check_order($valid, $order, $customer_id)
+    {
 
         //Comprobamos si ya existe una RMA para este pedido
         if ($this->rma->exists($order->get_id(), $customer_id)) {
@@ -56,4 +59,35 @@ class Endpoints
         return $valid;
     }
 
+    public function add_account_orders_columns($columns)
+    {
+        $new_columns = [];
+        
+        foreach ($columns as $key => $label) {
+            $new_columns[$key] = $label;
+
+            if ($key === 'order-actions') {
+                $new_columns['rma-status'] = __('RMA status', 'dl-woo-rma');
+            }
+        }
+
+        return $new_columns;
+    }
+
+    public function rma_status_column($order)
+    {
+        $rmas = $this->rma->loadByOrderId($order->get_id(), get_current_user_id());
+
+        if (!empty($rmas)) {
+            foreach ($rmas as $rma) {
+                echo '<p>';
+                    echo esc_html($rma->getLabelStatus());
+                echo '</p>';
+            }
+        } else {
+            echo '<p>';
+                echo esc_html__('No RMA', 'dl-woo-rma');
+            echo '</p>';
+        }
+    }
 }
