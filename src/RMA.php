@@ -58,35 +58,50 @@ class RMA
     /**
      * Verifica si ya existe una solicitud de RMA para el mismo pedido, producto y cliente
      * @param int $order_id
-     * @param int $product_id
      * @param int $customer_id
+     * @param int $product_id
      * @return bool
      * @author Daniel Lucia
      */
-    public function exists(int $order_id, int $product_id, int $customer_id): bool {
+    public function exists(int $order_id = 0, int $customer_id = 0, int $product_id = 0): bool {
+
+        if ($order_id <= 0) {
+            return false;
+        }
+
         $args = [
             'post_type'   => 'rma',
             'post_status' => 'any',
-            'meta_query' => [
-                [
-                    'key'     => '_rma_order_id',
-                    'value'   => $order_id,
-                    'compare' => '=',
-                ],
-                [
-                    'key'     => '_rma_product_id',
-                    'value'   => $product_id,
-                    'compare' => '=',
-                ],
-                [
-                    'key'     => '_rma_customer_id',
-                    'value'   => $customer_id,
-                    'compare' => '=',
-                ],
-            ],
             'fields'      => 'ids',
             'numberposts' => 1,
         ];
+
+        $meta_query = [];
+        $meta_query[] = [
+            'key'     => '_rma_order_id',
+            'value'   => $order_id,
+            'compare' => '=',
+        ];
+
+        if ($product_id > 0) {
+            $meta_query[] = [
+                'key'     => '_rma_product_id',
+                'value'   => $product_id,
+                'compare' => '=',
+            ];
+        }
+
+        if ($customer_id > 0) {
+            $meta_query[] = [
+                'key'     => '_rma_customer_id',
+                'value'   => $customer_id,
+                'compare' => '=',
+            ];
+        }
+
+        if (!empty($meta_query)) {
+            $args['meta_query'] = $meta_query;
+        }
 
         $existing_rmas = get_posts($args);
 
