@@ -10,12 +10,8 @@ class RMA
     private $id_rma;
     private $statuses = ['pending', 'approved', 'rejected', 'completed'];
 
-    public $order_id;
-    public $customer_id;
-    public $product_id;
-    public $reason;
-    public $comments;
-    public $status;
+    public $order_id, $customer_id, $product_id, $reason, $comments, $status;
+
 
     public function __construct($id_rma = 0)
     {
