@@ -10,10 +10,39 @@ class RMA
     private $id_rma;
     private $statuses = ['pending', 'approved', 'rejected', 'completed'];
 
+    public $order_id;
+    public $customer_id;
+    public $product_id;
+    public $reason;
+    public $comments;
+    public $status;
+
     public function __construct($id_rma = 0)
     {
         $this->id_rma = $id_rma;
         $this->statuses = apply_filters('dl_woo_rma_statuses', $this->statuses);
+
+        if ($this->id_rma > 0) {
+            $this->load();
+        }
+    }
+    /**
+     * Carga los datos de la RMA desde la base de datos
+     * @return void
+     * @author Daniel Lucia
+     */
+    private function load(): void
+    {
+        $post = get_post($this->id_rma);
+
+        if ($post && $post->post_type === 'rma') {
+            $this->order_id = get_post_meta($this->id_rma, '_rma_order_id', true);
+            $this->customer_id = get_post_meta($this->id_rma, '_rma_customer_id', true);
+            $this->product_id = get_post_meta($this->id_rma, '_rma_product_id', true);
+            $this->reason = get_post_meta($this->id_rma, '_rma_reason', true);
+            $this->comments = get_post_meta($this->id_rma, '_rma_comments', true);
+            $this->status = get_post_meta($this->id_rma, 'status', true);
+        }
     }
 
     /**
@@ -26,7 +55,7 @@ class RMA
      * @return int ID de la solicitud de RMA creada o 0 si ya existe
      * @author Daniel Lucia
      */
-    public function create(int $order_id, int $customer_id, int $product_id, string $reason, string $comments):int
+    public function create(int $order_id, int $customer_id, int $product_id, string $reason, string $comments): int
     {
 
         if ($this->exists($order_id, $product_id, $customer_id)) {
@@ -65,7 +94,8 @@ class RMA
      * @return bool
      * @author Daniel Lucia
      */
-    public function exists(int $order_id = 0, int $customer_id = 0, int $product_id = 0): bool {
+    public function exists(int $order_id = 0, int $customer_id = 0, int $product_id = 0): bool
+    {
 
         if ($order_id <= 0) {
             return false;
