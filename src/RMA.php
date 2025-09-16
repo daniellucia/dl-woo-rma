@@ -22,13 +22,19 @@ class RMA
             $this->load();
         }
     }
+    
     /**
      * Carga los datos de la RMA desde la base de datos
+     * @param int $id_rma
      * @return void
      * @author Daniel Lucia
      */
-    private function load(): void
+    public function load(int $id_rma = 0): void
     {
+        if ($id_rma > 0) {
+            $this->id_rma = $id_rma;
+        }
+
         $post = get_post($this->id_rma);
 
         if ($post && $post->post_type === 'rma') {
