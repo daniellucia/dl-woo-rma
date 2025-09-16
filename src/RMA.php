@@ -8,10 +8,12 @@ class RMA
 {
 
     private $id_rma;
+    private $statuses = ['pending', 'approved', 'rejected', 'completed'];
 
     public function __construct($id_rma = 0)
     {
         $this->id_rma = $id_rma;
+        $this->statuses = apply_filters('dl_woo_rma_statuses', $this->statuses);
     }
 
     /**
@@ -106,5 +108,15 @@ class RMA
         $existing_rmas = get_posts($args);
 
         return !empty($existing_rmas);
+    }
+
+    /**
+     * Obtiene los estados de las RMAs
+     * @return array
+     * @author Daniel Lucia
+     */
+    public function getStatuses(): array
+    {
+        return $this->statuses;
     }
 }
