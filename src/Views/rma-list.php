@@ -10,19 +10,19 @@
     </thead>
 
     <tbody>
-        <?php foreach ($tickets as $ticket): ?>
+        <?php foreach ($rmas as $rma): ?>
             <tr class="woocommerce-orders-table__row woocommerce-orders-table__row--status-processing order">
                 <th class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" scope="row">
-                    <?= $this->e($ticket['order_id']) ?>
+                    <?= $this->e($rma->order_id) ?>
                 </th>
                 <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-date">
-                    <?= $this->e($ticket['product']) ?>
+                    <?= $this->e($rma->product_id) ?>
                 </td>
                 <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status" dta-title="Estado">
-                    <?= $this->e($ticket['status']) ?>
+                    <?= $this->e($rma->status) ?>
                 </td>
                 <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total">
-                    <?= $this->e($ticket['date']) ?>
+                    <?= $this->e($rma->date_created) ?>
                 </td>
             </tr>
         <?php endforeach; ?>
