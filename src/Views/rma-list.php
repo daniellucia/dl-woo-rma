@@ -26,7 +26,7 @@
                     <?= $this->e($rma->status) ?>
                 </td>
                 <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total">
-                    <?= $this->e($rma->date_created) ?>
+                    <?= $this->e(date_i18n(get_option('date_format'), strtotime($rma->date_created))) ?>
                 </td>
             </tr>
         <?php endforeach; ?>
