@@ -16,7 +16,11 @@
                     <?= $this->e($rma->order_id) ?>
                 </th>
                 <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-date">
-                    <?= $this->e($rma->product_id) ?>
+                    <?php if ($rma->product): ?>
+                        <?= $this->e($rma->product->name) ?>
+                    <?php else: ?>
+                        --
+                    <?php endif; ?>
                 </td>
                 <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status" dta-title="Estado">
                     <?= $this->e($rma->status) ?>
