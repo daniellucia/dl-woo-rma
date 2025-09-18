@@ -10,7 +10,7 @@ class RMA
     private $id_rma;
     private $statuses = ['pending', 'approved', 'rejected', 'completed'];
 
-    public $order_id, $customer_id, $product_id, $reason, $comments, $status, $product;
+    public $order_id, $customer_id, $product_id, $reason, $comments, $status, $product, $date_created;
 
 
     public function __construct($id_rma = 0)
@@ -44,6 +44,7 @@ class RMA
             $this->reason = get_post_meta($this->id_rma, '_rma_reason', true);
             $this->comments = get_post_meta($this->id_rma, '_rma_comments', true);
             $this->status = get_post_meta($this->id_rma, 'status', true);
+            $this->date_created = $post->post_date;
 
             //Cargamos el producto
             if ($this->product_id > 0) {
