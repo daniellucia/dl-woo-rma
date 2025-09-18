@@ -24,6 +24,24 @@ class RMA
     }
 
     /**
+     * Comprueba si un usuario tiene solicitudes de RMA
+     * @param int $customer_id
+     * @return bool
+     * @author Daniel Lucia
+     */
+    public function userHasRma(int $customer_id = 0): bool {
+        
+        if ($customer_id <= 0) {
+            $customer_id = get_current_user_id();
+        }
+
+        $rmas = $this->loadByCustomerId($customer_id);
+
+        return !empty($rmas);
+
+    }
+
+    /**
      * Carga los datos de la RMA desde la base de datos
      * @param int $id_rma
      * @return void
