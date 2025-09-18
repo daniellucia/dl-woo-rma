@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RMA for WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-06 08:47+0000\n"
+"POT-Creation-Date: 2025-09-18 11:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -16,44 +16,68 @@ msgstr ""
 "X-Loco-Version: 2.8.0; wp-6.8.2; php-8.1.29\n"
 "X-Domain: dl-woo-rma"
 
-#: src/Settings.php:123
-msgid "Acción"
-msgstr ""
-
-#: src/Settings.php:89
+#: src/Settings.php:107 src/Settings.php:151
 msgid "Action"
 msgstr ""
 
-#: src/Settings.php:82 src/Settings.php:94
+#: src/Settings.php:100 src/Settings.php:112
 msgid "Add new"
 msgstr ""
 
-#: src/Endpoints.php:49
+#: src/Form.php:65
+msgid "An RMA request for one of the selected products already exists."
+msgstr ""
+
+#: src/RMA.php:251
+msgid "Approved"
+msgstr ""
+
+#: src/Form.php:156
 msgid "Available Action"
 msgstr ""
 
-#: src/Endpoints.php:45
+#: src/Form.php:172
 msgid "Comment"
+msgstr ""
+
+#: src/CPT.php:80
+msgid "Comments"
+msgstr ""
+
+#: src/RMA.php:253
+msgid "Completed"
+msgstr ""
+
+#: src/CPT.php:68
+msgid "Customer ID"
 msgstr ""
 
 #. Author of the plugin
 msgid "Daniel Lúcia"
 msgstr ""
 
-#: src/Settings.php:88
+#: src/Views/rma-list.php:8
+msgid "Date"
+msgstr ""
+
+#: src/CPT.php:38
+msgid "Datos de RMA"
+msgstr ""
+
+#: src/Settings.php:106 src/Settings.php:150
 msgid "Days"
 msgstr ""
 
-#: src/Settings.php:78 src/Settings.php:90 src/Settings.php:108
-#: src/Settings.php:124
+#: src/Settings.php:96 src/Settings.php:108 src/Settings.php:136
+#: src/Settings.php:152
 msgid "Delete"
 msgstr ""
 
-#: src/Settings.php:122
-msgid "Días"
+#: src/Settings.php:114
+msgid "Estados de pedido válidos para devolución"
 msgstr ""
 
-#: src/Endpoints.php:65
+#: src/Form.php:177
 msgid "Generate RMA"
 msgstr ""
 
@@ -61,12 +85,52 @@ msgstr ""
 msgid "http://www.daniellucia.es"
 msgstr ""
 
-#: src/Endpoints.php:21
+#: src/Form.php:28
+msgid "Invalid order."
+msgstr ""
+
+#: src/Endpoints.php:109
+msgid "No RMA"
+msgstr ""
+
+#: src/CPT.php:64 src/Views/rma-list.php:5
+msgid "Order ID"
+msgstr ""
+
+#: src/RMA.php:250
+msgid "Pending"
+msgstr ""
+
+#: src/Endpoints.php:45
 msgid "Process RMA"
 msgstr ""
 
-#: src/CPT.php:19 src/CPT.php:20 src/Settings.php:33
+#: src/Views/rma-list.php:6
+msgid "Product"
+msgstr ""
+
+#: src/CPT.php:72
+msgid "Product ID"
+msgstr ""
+
+#: src/CPT.php:76
+msgid "Reason"
+msgstr ""
+
+#: src/RMA.php:252
+msgid "Rejected"
+msgstr ""
+
+#: src/Endpoints.php:125 src/Endpoints.php:128
+msgid "Returns"
+msgstr ""
+
+#: src/CPT.php:19 src/CPT.php:20 src/Settings.php:41
 msgid "RMA"
+msgstr ""
+
+#: src/RMA.php:153
+msgid "RMA for Order #"
 msgstr ""
 
 #. Name of the plugin
@@ -77,22 +141,54 @@ msgstr ""
 msgid "RMA Management for WooCommerce"
 msgstr ""
 
-#: src/Settings.php:68
+#: src/Settings.php:86
 msgid "RMA options"
 msgstr ""
 
-#: src/Endpoints.php:41
+#: src/Form.php:67
+msgid "RMA request created for product ID %d with RMA ID %d."
+msgstr ""
+
+#: src/Form.php:34
 msgid "RMA Request for Order #%d"
 msgstr ""
 
-#: src/Settings.php:32
+#: src/Settings.php:40
 msgid "RMA Settings"
 msgstr ""
 
-#: src/Settings.php:73
+#: src/Settings.php:91
 msgid "RMA States"
 msgstr ""
 
-#: src/Settings.php:84
+#: src/Endpoints.php:84
+msgid "RMA status"
+msgstr ""
+
+#: src/Settings.php:102
 msgid "RMA Time Rules"
+msgstr ""
+
+#: src/Form.php:43 src/Form.php:52
+msgid "Security check failed. Please try again."
+msgstr ""
+
+#: src/Form.php:103
+msgid "Select the products you wish to process:"
+msgstr ""
+
+#: src/Form.php:122
+msgid "Siguiente"
+msgstr ""
+
+#: src/Views/rma-list.php:7 src/Views/rma-list.php:25
+msgid "Status"
+msgstr ""
+
+#: src/RMA.php:256
+msgid "Unknown"
+msgstr ""
+
+#: src/Form.php:99
+msgid "You must select at least one product."
 msgstr ""
