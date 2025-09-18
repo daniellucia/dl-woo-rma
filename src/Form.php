@@ -109,7 +109,7 @@ class Form
                     $product_name = $product->get_name();
                     $qty = $item->get_quantity();
                     echo '<label style="display:block;margin-bottom:4px;">';
-                        echo '<input type="checkbox" name="rma_products[]" value="' . esc_attr($item_id) . '"> ';
+                        echo '<input type="checkbox" name="rma_products[]" value="' . esc_attr($product->get_id()) . '"> ';
                         echo esc_html($product_name) . ' &times; ' . intval($qty);
                     echo '</label>';
                 }
