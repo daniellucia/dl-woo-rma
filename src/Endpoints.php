@@ -2,6 +2,8 @@
 
 namespace DL\RMA;
 
+use League\Plates\Engine;
+
 defined('ABSPATH') || exit;
 
 class Endpoints
@@ -74,7 +76,7 @@ class Endpoints
     public function add_account_orders_columns($columns)
     {
         $new_columns = [];
-        
+
         foreach ($columns as $key => $label) {
             $new_columns[$key] = $label;
 
@@ -99,12 +101,12 @@ class Endpoints
         if (!empty($rmas)) {
             foreach ($rmas as $rma) {
                 echo '<p>';
-                    echo esc_html($rma->getLabelStatus());
+                echo esc_html($rma->getLabelStatus());
                 echo '</p>';
             }
         } else {
             echo '<p>';
-                echo esc_html__('No RMA', 'dl-woo-rma');
+            echo esc_html__('No RMA', 'dl-woo-rma');
             echo '</p>';
         }
     }
@@ -148,18 +150,11 @@ class Endpoints
         $customer_id = get_current_user_id();
         $rmas = $this->rma->loadByCustomerId($customer_id);
 
-        echo '<h2>' . esc_html__('Tus devoluciones', 'dl-woo-rma') . '</h2>';
+        $template_folder = DL_WOO_RMA_PATH . 'src/Views/';
+        $template = new Engine($template_folder);
 
-        if (empty($rmas)) {
-            echo '<p>' . esc_html__('No tienes devoluciones tramitadas.', 'dl-woo-rma') . '</p>';
-        } else {
-            echo '<ul class="dl-rma-list">';
-            foreach ($rmas as $rma) {
-                echo '<li>';
-                echo esc_html(sprintf(__('Pedido #%d - Estado: %s', 'dl-woo-rma'), $rma->order_id, $rma->getLabelStatus()));
-                echo '</li>';
-            }
-            echo '</ul>';
-        }
+        echo $template->render('rma-list', [
+            'rmas' => $rmas
+        ]);
     }
 }
