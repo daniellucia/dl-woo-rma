@@ -10,7 +10,7 @@ class RMA
     private $id_rma;
     private $statuses = ['pending', 'approved', 'rejected', 'completed'];
 
-    public $order_id, $customer_id, $product_id, $reason, $comments, $status;
+    public $order_id, $customer_id, $product_id, $reason, $comments, $status, $product;
 
 
     public function __construct($id_rma = 0)
@@ -22,7 +22,7 @@ class RMA
             $this->load();
         }
     }
-    
+
     /**
      * Carga los datos de la RMA desde la base de datos
      * @param int $id_rma
@@ -44,6 +44,11 @@ class RMA
             $this->reason = get_post_meta($this->id_rma, '_rma_reason', true);
             $this->comments = get_post_meta($this->id_rma, '_rma_comments', true);
             $this->status = get_post_meta($this->id_rma, 'status', true);
+
+            //Cargamos el producto
+            if ($this->product_id > 0) {
+                $this->product = wc_get_product($this->product_id);
+            }
         }
     }
 
@@ -244,7 +249,7 @@ class RMA
             'pending'  => __('Pending', 'dl-woo-rma'),
             'approved' => __('Approved', 'dl-woo-rma'),
             'rejected' => __('Rejected', 'dl-woo-rma'),
-            'completed'=> __('Completed', 'dl-woo-rma'),
+            'completed' => __('Completed', 'dl-woo-rma'),
         ];
 
         return $labels[$status] ?? __('Unknown', 'dl-woo-rma');
