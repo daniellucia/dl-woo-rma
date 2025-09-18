@@ -21,6 +21,8 @@ class Plugin
         add_action('init', [$cpt, 'register']);
         add_action('add_meta_boxes', [$cpt, 'add_rma_meta_boxes']);
         add_action('save_post_rma', [$cpt, 'save_rma_meta_boxes']);
+        add_filter('manage_rma_posts_columns', [$cpt, 'add_rma_columns']);
+        add_action('manage_rma_posts_custom_column', [$cpt, 'render_rma_columns'], 10, 2);
 
         $settings = new Settings();
         add_action('admin_menu', [$settings, 'add_settings_page']);
