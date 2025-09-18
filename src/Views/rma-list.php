@@ -2,10 +2,10 @@
 <table class="woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
     <thead>
         <tr>
-            <th scope="col" class="woocommerce-orders-table__header woocommerce-orders-table__header-order-number"><span class="nobr"><?= __('Order ID', 'dl-ticket-manager') ?></span></th>
-            <th scope="col" class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date"><span class="nobr"><?= __('Product', 'dl-ticket-manager') ?></span></th>
-            <th scope="col" class="woocommerce-orders-table__header woocommerce-orders-table__header-order-status"><span class="nobr"><?= __('Status', 'dl-ticket-manager') ?></span></th>
-            <th scope="col" class="woocommerce-orders-table__header woocommerce-orders-table__header-order-total"><span class="nobr"><?= __('Date', 'dl-ticket-manager') ?></span></th>
+            <th scope="col" class="woocommerce-orders-table__header woocommerce-orders-table__header-order-number"><span class="nobr"><?= __('Order ID', 'dl-woo-rma') ?></span></th>
+            <th scope="col" class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date"><span class="nobr"><?= __('Product', 'dl-woo-rma') ?></span></th>
+            <th scope="col" class="woocommerce-orders-table__header woocommerce-orders-table__header-order-status"><span class="nobr"><?= __('Status', 'dl-woo-rma') ?></span></th>
+            <th scope="col" class="woocommerce-orders-table__header woocommerce-orders-table__header-order-total"><span class="nobr"><?= __('Date', 'dl-woo-rma') ?></span></th>
         </tr>
     </thead>
 
@@ -22,7 +22,7 @@
                         --
                     <?php endif; ?>
                 </td>
-                <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status" dta-title="Estado">
+                <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status" dta-title="<?= __('Status', 'dl-woo-rma') ?>">
                     <?= $this->e($rma->status) ?>
                 </td>
                 <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total">
