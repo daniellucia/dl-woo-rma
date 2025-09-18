@@ -59,6 +59,13 @@ class Endpoints
         return $valid;
     }
 
+    /**
+     * Añade una nueva columna en la lista de pedidos para 
+     * ver el estado de la RMA
+     * @param mixed $columns
+     * @return array
+     * @author Daniel Lucia
+     */
     public function add_account_orders_columns($columns)
     {
         $new_columns = [];
@@ -74,6 +81,12 @@ class Endpoints
         return $new_columns;
     }
 
+    /**
+     * Muestra el estado de la RMA en la columna añadida
+     * @param mixed $order
+     * @return void
+     * @author Daniel Lucia
+     */
     public function rma_status_column($order)
     {
         $rmas = $this->rma->loadByOrderId($order->get_id(), get_current_user_id());
