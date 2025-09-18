@@ -18,7 +18,7 @@ class Endpoints
         // Menú "mi cuenta"
         add_action('init', [$this, 'add_rma_endpoint']);
         add_filter('woocommerce_account_menu_items', [$this, 'add_account_menu_item']);
-        add_action('woocommerce_account_devoluciones_endpoint', [$this, 'devoluciones_content']);
+        add_action('woocommerce_account_rma_endpoint', [$this, 'rma_content']);
     }
 
     /**
@@ -145,5 +145,21 @@ class Endpoints
      */
     public function rma_content()
     {
+        $customer_id = get_current_user_id();
+        $rmas = $this->rma->loadByCustomerId($customer_id);
+
+        echo '<h2>' . esc_html__('Tus devoluciones', 'dl-woo-rma') . '</h2>';
+
+        if (empty($rmas)) {
+            echo '<p>' . esc_html__('No tienes devoluciones tramitadas.', 'dl-woo-rma') . '</p>';
+        } else {
+            echo '<ul class="dl-rma-list">';
+            foreach ($rmas as $rma) {
+                echo '<li>';
+                echo esc_html(sprintf(__('Pedido #%d - Estado: %s', 'dl-woo-rma'), $rma->order_id, $rma->getLabelStatus()));
+                echo '</li>';
+            }
+            echo '</ul>';
+        }
     }
 }
