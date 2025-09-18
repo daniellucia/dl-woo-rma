@@ -170,6 +170,8 @@ class RMA
             return 0;
         }
 
+        do_action('dl_woo_rma_after_create', $this->id_rma);
+
         return $this->id_rma;
     }
 
