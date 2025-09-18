@@ -22,6 +22,11 @@ class Account
      */
     public function add_account_menu_item($items)
     {
+        //Si el usuario no tiene rma, no añadimos el enlace
+        if (!$this->rma->userHasRma()) {
+            return $items;
+        }
+
         // Añade el enlace antes de "Cerrar sesión"
         $logout_key = array_search('customer-logout', array_keys($items));
         if ($logout_key !== false) {
