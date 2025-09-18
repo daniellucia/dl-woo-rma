@@ -48,6 +48,41 @@ class RMA
     }
 
     /**
+     * Obtenemos las solicitudes de RMA por ID de cliente
+     * @param int $customer_id
+     * @return RMA[]
+     * @author Daniel Lucia
+     */
+    public function loadByCustomerId(int $customer_id): array
+    {
+        $ids_rma = [];
+
+        $args = [
+            'post_type'   => 'rma',
+            'post_status' => 'any',
+            'fields'      => 'ids',
+            'numberposts' => -1,
+            'meta_query'  => [
+                [
+                    'key'     => '_rma_customer_id',
+                    'value'   => $customer_id,
+                    'compare' => '=',
+                ],
+            ],
+        ];
+
+        $posts = get_posts($args);
+
+        if (!empty($posts)) {
+            foreach ($posts as $post_id) {
+                $ids_rma[] = new RMA($post_id);
+            }
+        }
+
+        return $ids_rma;
+    }
+
+    /**
      * Carga las solicitudes de RMA por ID de pedido
      * @param int $order_id
      * @param int $customer_id
