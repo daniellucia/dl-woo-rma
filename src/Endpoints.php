@@ -14,6 +14,11 @@ class Endpoints
         add_filter('dl_woo_rma_is_valid_order_for_rma', [$this, 'check_order'], 10, 3);
         add_filter('woocommerce_account_orders_columns', [$this, 'add_account_orders_columns'], 20, 1);
         add_action('woocommerce_my_account_my_orders_column_rma-status', [$this, 'rma_status_column'], 10, 1);
+
+        // Menú "mi cuenta"
+        add_action('init', [$this, 'add_rma_endpoint']);
+        add_filter('woocommerce_account_menu_items', [$this, 'add_account_menu_item']);
+        add_action('woocommerce_account_devoluciones_endpoint', [$this, 'devoluciones_content']);
     }
 
     /**
@@ -102,5 +107,43 @@ class Endpoints
                 echo esc_html__('No RMA', 'dl-woo-rma');
             echo '</p>';
         }
+    }
+
+    /**
+     * Añadimos el enlace "Devoluciones" en el menú de la cuenta
+     * @param mixed $items
+     * @author Daniel Lucia
+     */
+    public function add_account_menu_item($items)
+    {
+        // Añade el enlace antes de "Cerrar sesión"
+        $logout_key = array_search('customer-logout', array_keys($items));
+        if ($logout_key !== false) {
+            $items = array_slice($items, 0, $logout_key, true)
+                + ['rma' => __('Returns', 'dl-woo-rma')]
+                + array_slice($items, $logout_key, null, true);
+        } else {
+            $items['rma'] = __('Returns', 'dl-woo-rma');
+        }
+        return $items;
+    }
+
+    /**
+     * Añade el endpoint "rma" para mostrar las RMAs del usuario
+     * @return void
+     * @author Daniel Lucia
+     */
+    public function add_rma_endpoint()
+    {
+        add_rewrite_endpoint('rma', EP_ROOT | EP_PAGES);
+    }
+
+    /**
+     * Muestra el contenido de la página de devoluciones
+     * @return void
+     * @author Daniel Lucia
+     */
+    public function rma_content()
+    {
     }
 }
