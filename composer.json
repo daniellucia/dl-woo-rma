@@ -18,5 +18,8 @@
     "config": {
         "optimize-autoloader": true,
         "autoloader-suffix": "DLRMA"
+    },
+    "require": {
+        "league/plates": "^3.6"
     }
 }
