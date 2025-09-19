@@ -2,6 +2,8 @@
 
 namespace DL\RMA;
 
+use League\Plates\Engine;
+
 defined('ABSPATH') || exit;
 
 class Form
@@ -86,44 +88,13 @@ class Form
      */
     private function render_product_selection_step($order, $error = false)
     {
-        ob_start();
-        ?>
-        <form method="get" class="dl-form-rma">
+        $template_folder = DL_WOO_RMA_PATH . 'src/Views/';
+        $template = new Engine($template_folder);
 
-            <?php do_action('dl_woo_rma_before_product_selection', $order); ?>
-
-            <?php wp_nonce_field('dl_woo_rma_step1', 'dl_woo_rma_nonce_step1'); ?>
-            <input type="hidden" name="rma" value="<?php echo esc_attr($order->get_id()); ?>" />
-
-            <?php if ($error): ?>
-                <p class="dl-error-product-empty"><?php _e('You must select at least one product.', 'dl-woo-rma'); ?></p>
-            <?php endif; ?>
-
-            <p class="form-row">
-                <label><?php _e('Select the products you wish to process:', 'dl-woo-rma'); ?></label>
-                <?php
-                foreach ($order->get_items() as $item_id => $item) {
-                    if (!is_a($item, 'WC_Order_Item_Product')) continue;
-                    $product = $item->get_product();
-                    if (!$product) continue;
-                    $product_name = $product->get_name();
-                    $qty = $item->get_quantity();
-                    echo '<label style="display:block;margin-bottom:4px;">';
-                        echo '<input type="checkbox" name="rma_products[]" value="' . esc_attr($product->get_id()) . '"> ';
-                        echo esc_html($product_name) . ' &times; ' . intval($qty);
-                    echo '</label>';
-                }
-                ?>
-            </p>
-            
-            <?php do_action('dl_woo_rma_after_product_selection', $order); ?>
-
-            <input type="hidden" name="rma_step" value="2" />
-            <button type="submit" class="woocommerce-button wp-element-button button"><?php _e('Siguiente', 'dl-woo-rma'); ?></button>
-
-        </form>
-        <?php
-        return ob_get_clean();
+        return $template->render('step-product-selection', [
+            'order' => $order,
+            'error' => $error
+        ]);
     }
 
     /**
@@ -135,50 +106,15 @@ class Form
      */
     private function render_action_step($order, $selected_products)
     {
-        ob_start();
-
         $selected_products = apply_filters('dl_woo_rma_validate_selected_products', $selected_products, $order);
         
-        ?>
-        <form method="get" class="dl-form-rma">
+        $template_folder = DL_WOO_RMA_PATH . 'src/Views/';
+        $template = new Engine($template_folder);
 
-            <?php do_action('dl_woo_rma_before_action_selection', $order, $selected_products); ?>
-
-            <?php wp_nonce_field('dl_woo_rma_step3', 'dl_woo_rma_nonce_step3'); ?>
-            <input type="hidden" name="rma_step" value="3" />
-            <input type="hidden" name="rma" value="<?php echo esc_attr($order->get_id()); ?>" />
-            <?php
-            foreach ($selected_products as $item_id) {
-                echo '<input type="hidden" name="rma_products[]" value="' . esc_attr($item_id) . '" />';
-            }
-            ?>
-            <p class="form-row">
-                <label><?php _e('Available Action', 'dl-woo-rma'); ?></label>
-                <select name="rma_action">
-                    <?php
-                    $rules = explode("\n", get_option('dl_woo_rma_rules', "15|Devolución\n60|Cambio\n1095|Garantía"));
-                    $order_date = strtotime($order->get_date_created());
-                    $days = floor((time() - $order_date) / DAY_IN_SECONDS);
-                    foreach ($rules as $rule) {
-                        list($limit, $action) = array_map('trim', explode('|', $rule));
-                        if ($days <= intval($limit)) {
-                            echo '<option value="' . esc_attr($action) . '">' . esc_html($action) . '</option>';
-                        }
-                    }
-                    ?>
-                </select>
-            </p>
-            <p class="form-row">
-                <label><?php _e('Comment', 'dl-woo-rma'); ?></label>
-                <textarea name="rma_comment" class="input-text"></textarea>
-            </p>
-
-            <?php do_action('dl_woo_rma_after_action_selection', $order, $selected_products); ?>
-            <button type="submit" name="rma_submit" class="woocommerce-button wp-element-button button"><?php _e('Generate RMA', 'dl-woo-rma'); ?></button>
-
-        </form>
-        <?php
-        return ob_get_clean();
+        return $template->render('step-action', [
+            'order' => $order,
+            'selected_products' => $selected_products
+        ]);
     }
 
     /**
