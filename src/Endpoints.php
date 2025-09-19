@@ -93,7 +93,7 @@ class Endpoints
         if (!empty($rmas)) {
             foreach ($rmas as $rma) {
                 echo '<p>';
-                echo esc_html($rma->getLabelStatus());
+                echo esc_html($rma->status);
                 echo '</p>';
             }
         } else {
