@@ -31,7 +31,7 @@ class Plugin
 
         $endpoints = new Endpoints();
         add_filter('woocommerce_my_account_my_orders_actions', [$endpoints, 'add_rma_link'], 10, 2);
-        add_filter('dl_woo_rma_is_valid_order_for_rma', [$endpoints, 'check_order'], 10, 3);
+        add_filter('dl_woo_rma_is_valid_order_for_rma', [$endpoints, 'check_order'], 100, 3);
         add_filter('woocommerce_account_orders_columns', [$endpoints, 'add_account_orders_columns'], 20, 1);
         add_action('woocommerce_my_account_my_orders_column_rma-status', [$endpoints, 'rma_status_column'], 10, 1);
 
