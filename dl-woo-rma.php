@@ -49,11 +49,8 @@ register_activation_hook(__FILE__, function () {
 register_deactivation_hook(__FILE__, 'flush_rewrite_rules');
 
 // Iniciamos el plugin
-add_action('init', function () {
-    load_plugin_textdomain('dl-woo-rma', false, dirname(plugin_basename(__FILE__)) . '/languages');
-});
-
 add_action('plugins_loaded', function () {
+    load_plugin_textdomain('dl-woo-rma', false, dirname(plugin_basename(__FILE__)) . '/languages');
     $plugin = new Plugin();
     $plugin->init();
 });
