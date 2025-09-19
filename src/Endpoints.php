@@ -25,7 +25,7 @@ class Endpoints
     {
         $order_id = $order->get_id();
         $customer_id = get_current_user_id();
-        $url = add_query_arg(['rma' => $order_id], wc_get_account_endpoint_url('orders'));
+        $url = add_query_arg(['rma' => $order_id], wc_get_account_endpoint_url('rma'));
         $valid_order = apply_filters('dl_woo_rma_is_valid_order_for_rma', true, $order, $customer_id);
 
         if (!$valid_order) {
