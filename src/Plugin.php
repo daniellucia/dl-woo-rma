@@ -47,7 +47,7 @@ class Plugin
         add_action('woocommerce_account_rma_endpoint', [$account, 'rma_content']);
 
         // Encolar CSS del plugin
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_styles']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_styles'], 999);
     }
 
 

@@ -1,3 +1,21 @@
 .dl-form-rma {
     margin: 0 0 40px 0;
 }
+
+body.woocommerce-page .woocommerce-orders-table .woocommerce-orders-table__cell.woocommerce-orders-table__cell-order-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+body.woocommerce-page .woocommerce-orders-table .woocommerce-orders-table__cell.woocommerce-orders-table__cell-order-actions a {
+    text-align: center;
+    margin: 0;
+}
+
+/** ==== ERROR STYLES ==== */
+.dl-error-product-empty {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
