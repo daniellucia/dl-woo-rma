@@ -29,8 +29,9 @@ class RMA
      * @return bool
      * @author Daniel Lucia
      */
-    public function userHasRma(int $customer_id = 0): bool {
-        
+    public function userHasRma(int $customer_id = 0): bool
+    {
+
         if ($customer_id <= 0) {
             $customer_id = get_current_user_id();
         }
@@ -38,7 +39,6 @@ class RMA
         $rmas = $this->loadByCustomerId($customer_id);
 
         return !empty($rmas);
-
     }
 
     /**
@@ -79,7 +79,7 @@ class RMA
      */
     public function loadByCustomerId(int $customer_id): array
     {
-        $ids_rma = [];
+        $rmas = [];
 
         $args = [
             'post_type'   => 'rma',
@@ -97,13 +97,7 @@ class RMA
 
         $posts = get_posts($args);
 
-        if (!empty($posts)) {
-            foreach ($posts as $post_id) {
-                $ids_rma[] = new RMA($post_id);
-            }
-        }
-
-        return $ids_rma;
+        return $this->load_posts($posts);
     }
 
     /**
@@ -115,7 +109,7 @@ class RMA
      */
     public function loadByOrderId(int $order_id, int $customer_id = 0): array
     {
-        $ids_rma = [];
+        $rmas = [];
 
         $args = [
             'post_type'   => 'rma',
@@ -141,13 +135,7 @@ class RMA
 
         $posts = get_posts($args);
 
-        if (!empty($posts)) {
-            foreach ($posts as $post_id) {
-                $ids_rma[] = new RMA($post_id);
-            }
-        }
-
-        return $ids_rma;
+        return $this->load_posts($posts);
     }
 
     /**
@@ -257,4 +245,19 @@ class RMA
         return $this->statuses;
     }
 
+    /**
+     * Carga las solicitudes de RMA desde un array
+     * @param mixed $posts
+     * @return array
+     * @author Daniel Lucia
+     */
+    private function load_posts($posts)
+    {
+        $rmas = [];
+        foreach ($posts as $post_id) {
+            $rma = apply_filters('dl_woo_rma_load', new RMA($post_id));
+            $rmas[] = $rma;
+        }
+        return $rmas;
+    }
 }
