@@ -13,9 +13,16 @@
         <label><?php _e('Select the products you wish to process:', 'dl-woo-rma'); ?></label>
         <?php
         foreach ($order->get_items() as $item_id => $item) {
-            if (!is_a($item, 'WC_Order_Item_Product')) continue;
+            
+            if (!is_a($item, 'WC_Order_Item_Product')) {
+                continue;
+            }
+
             $product = $item->get_product();
-            if (!$product) continue;
+            if (!$product) {
+                continue;
+            }
+
             $product_name = $product->get_name();
             $qty = $item->get_quantity();
             echo '<label style="display:block;margin-bottom:4px;">';
