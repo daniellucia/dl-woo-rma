@@ -28,6 +28,10 @@ class Status
             $statuses = $this->default_statuses;
         }
 
+        $statuses = array_map(function($status) {
+            return __($status, 'dl-woo-rma');
+        }, $statuses);
+
         return $statuses;
     }
 }
