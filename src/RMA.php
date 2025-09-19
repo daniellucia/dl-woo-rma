@@ -262,9 +262,11 @@ class RMA
      * @return string
      * @author Daniel Lucia
      */
-    public function getLabelStatus(): string
+    public function getLabelStatus(string $label_status = ''): string
     {
-        $status = $this->status;
+        if ($label_status === '') {
+            $label_status = $this->status;
+        }
 
         $labels = [
             'pending'  => __('Pending', 'dl-woo-rma'),
@@ -273,6 +275,6 @@ class RMA
             'completed' => __('Completed', 'dl-woo-rma'),
         ];
 
-        return $labels[$status] ?? __('Unknown', 'dl-woo-rma');
+        return $labels[$label_status] ?? __('Unknown', 'dl-woo-rma');
     }
 }
