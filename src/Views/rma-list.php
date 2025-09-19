@@ -13,7 +13,9 @@
         <?php foreach ($rmas as $rma): ?>
             <tr class="woocommerce-orders-table__row">
                 <th class="woocommerce-orders-table__cell" scope="row">
-                    <?= $this->e($rma->order_id) ?>
+                    <a href="<?= $this->e(wc_get_account_endpoint_url( 'view-order/' . $rma->order_id)) ?>">
+                        <?= $this->e($rma->order_id) ?>
+                    </a>
                 </th>
                 <td class="woocommerce-orders-table__cell">
                     <?php if ($rma->product): ?>
