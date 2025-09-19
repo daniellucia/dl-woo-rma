@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: RMA for WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-06 08:42+0000\n"
-"PO-Revision-Date: 2025-09-18 11:01+0000\n"
+"PO-Revision-Date: 2025-09-19 10:58+0000\n"
 "Last-Translator: \n"
 "Language-Team: Español\n"
 "Language: es_ES\n"
@@ -28,10 +28,6 @@ msgid "An RMA request for one of the selected products already exists."
 msgstr ""
 "Ya existe una solicitud de RMA para uno de los productos seleccionados."
 
-#: src/RMA.php:251
-msgid "Approved"
-msgstr "Aprobado"
-
 #: src/Form.php:156
 msgid "Available Action"
 msgstr "Acción disponible"
@@ -44,9 +40,9 @@ msgstr "Comentarios"
 msgid "Comments"
 msgstr "Comentarios"
 
-#: src/RMA.php:253
-msgid "Completed"
-msgstr "Terminado"
+#: src/CPT.php:134
+msgid "Customer"
+msgstr "Cliente"
 
 #: src/CPT.php:68
 msgid "Customer ID"
@@ -89,23 +85,19 @@ msgstr "http://www.daniellucia.es"
 msgid "Invalid order."
 msgstr "Orden inválida"
 
-#: src/Endpoints.php:109
+#: src/Endpoints.php:101
 msgid "No RMA"
 msgstr "Sin RMA"
 
-#: src/CPT.php:64 src/Views/rma-list.php:5
+#: src/CPT.php:64 src/CPT.php:132 src/Views/rma-list.php:5
 msgid "Order ID"
 msgstr "ID de pedido"
 
-#: src/RMA.php:250
-msgid "Pending"
-msgstr "Pendiente"
-
-#: src/Endpoints.php:45
+#: src/Endpoints.php:37
 msgid "Process RMA"
 msgstr "Procesar RMA"
 
-#: src/Views/rma-list.php:6
+#: src/CPT.php:133 src/Views/rma-list.php:6
 msgid "Product"
 msgstr "Producto"
 
@@ -117,11 +109,7 @@ msgstr "Identificación del producto"
 msgid "Reason"
 msgstr "Razón"
 
-#: src/RMA.php:252
-msgid "Rejected"
-msgstr "Rechazado"
-
-#: src/Endpoints.php:125 src/Endpoints.php:128
+#: src/Account.php:34 src/Account.php:37
 msgid "Returns"
 msgstr "Devoluciones"
 
@@ -129,7 +117,7 @@ msgstr "Devoluciones"
 msgid "RMA"
 msgstr "RMA"
 
-#: src/RMA.php:153
+#: src/RMA.php:159
 msgid "RMA for Order #"
 msgstr "RMA para el pedido n.°"
 
@@ -161,7 +149,7 @@ msgstr "Ajustes RMA"
 msgid "RMA States"
 msgstr "Estados RMA"
 
-#: src/Endpoints.php:84
+#: src/Endpoints.php:76
 msgid "RMA status"
 msgstr "Estado de RMA"
 
@@ -181,13 +169,9 @@ msgstr "Seleccione los productos que desea procesar:"
 msgid "Siguiente"
 msgstr "Siguiente"
 
-#: src/Views/rma-list.php:7 src/Views/rma-list.php:25
+#: src/CPT.php:135 src/Views/rma-list.php:7 src/Views/rma-list.php:27
 msgid "Status"
 msgstr "Estado"
-
-#: src/RMA.php:256
-msgid "Unknown"
-msgstr "Desconocido"
 
 #: src/Form.php:99
 msgid "You must select at least one product."

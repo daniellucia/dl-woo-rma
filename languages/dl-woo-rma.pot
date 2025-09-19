@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RMA for WooCommerce\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-18 11:00+0000\n"
+"POT-Creation-Date: 2025-09-19 10:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -28,10 +28,6 @@ msgstr ""
 msgid "An RMA request for one of the selected products already exists."
 msgstr ""
 
-#: src/RMA.php:251
-msgid "Approved"
-msgstr ""
-
 #: src/Form.php:156
 msgid "Available Action"
 msgstr ""
@@ -44,8 +40,8 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: src/RMA.php:253
-msgid "Completed"
+#: src/CPT.php:134
+msgid "Customer"
 msgstr ""
 
 #: src/CPT.php:68
@@ -89,23 +85,19 @@ msgstr ""
 msgid "Invalid order."
 msgstr ""
 
-#: src/Endpoints.php:109
+#: src/Endpoints.php:101
 msgid "No RMA"
 msgstr ""
 
-#: src/CPT.php:64 src/Views/rma-list.php:5
+#: src/CPT.php:64 src/CPT.php:132 src/Views/rma-list.php:5
 msgid "Order ID"
 msgstr ""
 
-#: src/RMA.php:250
-msgid "Pending"
-msgstr ""
-
-#: src/Endpoints.php:45
+#: src/Endpoints.php:37
 msgid "Process RMA"
 msgstr ""
 
-#: src/Views/rma-list.php:6
+#: src/CPT.php:133 src/Views/rma-list.php:6
 msgid "Product"
 msgstr ""
 
@@ -117,11 +109,7 @@ msgstr ""
 msgid "Reason"
 msgstr ""
 
-#: src/RMA.php:252
-msgid "Rejected"
-msgstr ""
-
-#: src/Endpoints.php:125 src/Endpoints.php:128
+#: src/Account.php:34 src/Account.php:37
 msgid "Returns"
 msgstr ""
 
@@ -129,7 +117,7 @@ msgstr ""
 msgid "RMA"
 msgstr ""
 
-#: src/RMA.php:153
+#: src/RMA.php:159
 msgid "RMA for Order #"
 msgstr ""
 
@@ -161,7 +149,7 @@ msgstr ""
 msgid "RMA States"
 msgstr ""
 
-#: src/Endpoints.php:84
+#: src/Endpoints.php:76
 msgid "RMA status"
 msgstr ""
 
@@ -181,12 +169,8 @@ msgstr ""
 msgid "Siguiente"
 msgstr ""
 
-#: src/Views/rma-list.php:7 src/Views/rma-list.php:25
+#: src/CPT.php:135 src/Views/rma-list.php:7 src/Views/rma-list.php:27
 msgid "Status"
-msgstr ""
-
-#: src/RMA.php:256
-msgid "Unknown"
 msgstr ""
 
 #: src/Form.php:99
