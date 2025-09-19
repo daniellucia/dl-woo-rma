@@ -44,7 +44,7 @@ class OrderStatus
         //Si no tenemos estados válidos, permitimos todos
         $valid_statuses = $this->getValidOrderStatuses();
         if (empty($valid_statuses)) {
-            return true;
+            return $valid;
         }
 
         $status = $order->get_status();
