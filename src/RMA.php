@@ -61,7 +61,7 @@ class RMA
             $this->product_id = get_post_meta($this->id_rma, '_rma_product_id', true);
             $this->reason = get_post_meta($this->id_rma, '_rma_reason', true);
             $this->comments = get_post_meta($this->id_rma, '_rma_comments', true);
-            $this->status = get_post_meta($this->id_rma, 'status', true);
+            $this->status = ucfirst(get_post_meta($this->id_rma, 'status', true));
             $this->date_created = $post->post_date;
 
             //Cargamos el producto
@@ -257,24 +257,4 @@ class RMA
         return $this->statuses;
     }
 
-    /**
-     * Obtiene la etiqueta del estado actual de la RMA
-     * @return string
-     * @author Daniel Lucia
-     */
-    public function getLabelStatus(string $label_status = ''): string
-    {
-        if ($label_status === '') {
-            $label_status = $this->status;
-        }
-
-        $labels = [
-            'pending'  => __('Pending', 'dl-woo-rma'),
-            'approved' => __('Approved', 'dl-woo-rma'),
-            'rejected' => __('Rejected', 'dl-woo-rma'),
-            'completed' => __('Completed', 'dl-woo-rma'),
-        ];
-
-        return $labels[$label_status] ?? __('Unknown', 'dl-woo-rma');
-    }
 }
