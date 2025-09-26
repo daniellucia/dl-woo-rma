@@ -150,12 +150,10 @@ class CPT
             case 'order_id':
 
                 echo esc_html(get_post_meta($post_id, '_rma_order_id', true));
-
                 break;
             case 'return_id':
 
                 echo esc_html(get_post_meta($post_id, '_rma_return_id', true));
-
                 break;
 
             case 'product':
@@ -169,8 +167,8 @@ class CPT
                         echo esc_html($product_id);
                     }
                 }
-
                 break;
+
             case 'customer':
 
                 $customer_id = get_post_meta($post_id, '_rma_customer_id', true);
@@ -182,13 +180,13 @@ class CPT
                         echo esc_html($customer_id);
                     }
                 }
-
                 break;
+
             case 'status':
 
                 echo esc_html(get_post_meta($post_id, 'status', true));
-
                 break;
+
             case 'date':
                 $post = get_post($post_id);
                 if ($post) {
