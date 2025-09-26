@@ -137,6 +137,7 @@ class CPT
         $columns['product']    = __('Product', 'dl-woo-rma');
         $columns['customer']   = __('Customer', 'dl-woo-rma');
         $columns['status']     = __('Status', 'dl-woo-rma');
+        $columns['date_created']     = __('Date created', 'dl-woo-rma');
         return $columns;
     }
 
@@ -150,6 +151,7 @@ class CPT
     public function render_rma_columns($column, $post_id)
     {
         switch ($column) {
+            
             case 'order_id':
 
                 echo esc_html(get_post_meta($post_id, '_rma_order_id', true));
@@ -190,10 +192,10 @@ class CPT
                 echo esc_html(get_post_meta($post_id, 'status', true));
                 break;
 
-            case 'date':
+            case 'date_created':
                 $post = get_post($post_id);
                 if ($post) {
-                    echo esc_html(get_the_date('Y-m-d H:i', $post));
+                    echo esc_html(get_date_from_gmt($post->post_date, get_option('date_format') . ' ' . get_option('time_format')));
                 }
                 break;
         }
