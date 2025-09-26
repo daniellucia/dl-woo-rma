@@ -166,6 +166,7 @@ class RMA
                 '_rma_product_id'  => intval($product_id),
                 '_rma_reason'      => sanitize_text_field($reason),
                 '_rma_comments'    => sanitize_textarea_field($comments),
+                '_rma_return_id'    => strtoupper(wp_generate_password(8, false, false)),
                 'status'           => 'pending',
             ],
         ];

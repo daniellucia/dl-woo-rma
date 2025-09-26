@@ -129,6 +129,7 @@ class CPT
      */
     public function add_rma_columns($columns)
     {
+        $columns['return_id']   = __('Return ID', 'dl-woo-rma');
         $columns['order_id']   = __('Order ID', 'dl-woo-rma');
         $columns['product']    = __('Product', 'dl-woo-rma');
         $columns['customer']   = __('Customer', 'dl-woo-rma');
@@ -151,6 +152,12 @@ class CPT
                 echo esc_html(get_post_meta($post_id, '_rma_order_id', true));
 
                 break;
+            case 'return_id':
+
+                echo esc_html(get_post_meta($post_id, '_rma_return_id', true));
+
+                break;
+
             case 'product':
 
                 $product_id = get_post_meta($post_id, '_rma_product_id', true);
