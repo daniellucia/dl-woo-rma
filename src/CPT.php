@@ -129,6 +129,9 @@ class CPT
      */
     public function add_rma_columns($columns)
     {
+
+        unset($columns['date']);
+
         $columns['return_id']   = __('Return ID', 'dl-woo-rma');
         $columns['order_id']   = __('Order ID', 'dl-woo-rma');
         $columns['product']    = __('Product', 'dl-woo-rma');
