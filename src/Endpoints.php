@@ -50,9 +50,10 @@ class Endpoints
     public function check_order($valid, $order, $customer_id)
     {
 
-        //Comprobamos si ya existe una RMA para este pedido
-        if ($this->rma->exists($order->get_id(), $customer_id)) {
-            return false;
+        //Obtenemos el porcetanje de productos con RMA en el pedido
+        $percent_rma = $this->rma->calculatePercentProductRMA($order->get_id());
+        if ($percent_rma >= 100) {
+            $valid = false;
         }
 
         return $valid;

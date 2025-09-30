@@ -51,13 +51,6 @@ class OrderStatus
         
         $valid = in_array($status, $valid_statuses);
 
-        //Obtenemos el porcetanje de productos con RMA en el pedido
-        $rma = new \DL\RMA\RMA();
-        $percent_rma = $rma->calculatePercentProductRMA($order->get_id());
-        if ($percent_rma >= 100) {
-            $valid = false;
-        }
-
         return $valid;
     }
 }
