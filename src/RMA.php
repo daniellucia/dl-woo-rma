@@ -143,12 +143,13 @@ class RMA
      * @param int $order_id
      * @param int $customer_id
      * @param int $product_id
+     * @param int $i
      * @param string $reason
      * @param string $comments
      * @return int ID de la solicitud de RMA creada o 0 si ya existe
      * @author Daniel Lucia
      */
-    public function create(int $order_id, int $customer_id, int $product_id, string $reason, string $comments): int
+    public function create(int $order_id, int $customer_id, int $product_id, int $index,  string $reason, string $comments): int
     {
 
         if ($this->exists($order_id, $product_id, $customer_id)) {
@@ -164,6 +165,7 @@ class RMA
                 '_rma_order_id'    => intval($order_id),
                 '_rma_customer_id' => intval($customer_id),
                 '_rma_product_id'  => intval($product_id),
+                '_rma_item_index'  => intval($index),
                 '_rma_reason'      => sanitize_text_field($reason),
                 '_rma_comments'    => sanitize_textarea_field($comments),
                 '_rma_return_id'    => strtoupper(wp_generate_password(8, false, false)),
@@ -246,6 +248,44 @@ class RMA
         return $this->statuses;
     }
 
+    /**
+     * Comprueba si ya existe una solicitud de RMA para el mismo pedido, producto e índice
+     * @param int $order_id
+     * @param int $product_id
+     * @param int $index
+     * @return bool
+     * @author Daniel Lucia
+     */
+    public function productExistsInRMA(int $order_id, int $product_id, int $index): bool
+    {
+        $args = [
+            'post_type'   => 'rma',
+            'post_status' => 'any',
+            'fields'      => 'ids',
+            'numberposts' => 1,
+            'meta_query'  => [
+                [
+                    'key'     => '_rma_order_id',
+                    'value'   => $order_id,
+                    'compare' => '=',
+                ],
+                [
+                    'key'     => '_rma_product_id',
+                    'value'   => $product_id,
+                    'compare' => '=',
+                ],
+                [
+                    'key'     => '_rma_item_index',
+                    'value'   => $index,
+                    'compare' => '=',
+                ],
+            ],
+        ];
+
+        $existing_rma = get_posts($args);
+
+        return !empty($existing_rma);
+    }
     /**
      * Carga las solicitudes de RMA desde un array
      * @param mixed $posts
