@@ -261,4 +261,48 @@ class RMA
         }
         return $rmas;
     }
+
+    /**
+     * Calcula el porcentaje de productos con RMA en un pedido
+     *
+     * @param integer $order_id
+     * @return float
+     */
+    public function calculatePercentProductRMA(int $order_id): float {
+        $order = wc_get_order($order_id);
+        if (!$order) {
+            return 0;
+        }
+
+        //Obtenemos el total de productos en el pedido
+        $total_items = 0;
+        foreach ($order->get_items() as $item) {
+            $total_items += $item->get_quantity();
+        }
+
+        if ($total_items === 0) {
+            return 0;
+        }
+
+        //Obtenemos el total de productos con RMA en el pedido
+        $args = [
+            'post_type'   => 'rma',
+            'post_status' => 'any',
+            'fields'      => 'ids',
+            'numberposts' => -1,
+            'meta_query'  => [
+                [
+                    'key'     => '_rma_order_id',
+                    'value'   => $order_id,
+                    'compare' => '=',
+                ],
+            ],
+        ];
+
+        $rma_posts = get_posts($args);
+        $rma_count = count($rma_posts);
+
+        return ($rma_count / $total_items) * 100;
+
+    }
 }
