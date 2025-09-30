@@ -12,6 +12,7 @@
     <p class="form-row">
         <label><?php _e('Select the products you wish to process:', 'dl-woo-rma'); ?></label>
         <?php
+
         foreach ($order->get_items() as $item_id => $item) {
 
             if (!is_a($item, 'WC_Order_Item_Product')) {
@@ -28,8 +29,14 @@
 
             for ($i = 0; $i < $qty; $i++) {
                 echo '<label style="display:block;margin-bottom:4px;">';
-                    echo '<input type="checkbox" name="rma_products[]" value="' . esc_attr($product->get_id()) . '"> ';
+
+                    $value = ['i' => $i, 'id' => $product->get_id()];
+                    $disabled = $rma->productExistsInRMA($order->get_id(), $value['id'], $value['i']);
+
+                    $value = base64_encode(wp_json_encode($value));
+                    echo '<input type="checkbox" name="rma_products[]" value="' . $value . '" ' . ($disabled ? 'disabled' : '') . '> ';
                     echo esc_html($product_name);
+
                 echo '</label>';
             }
         }
