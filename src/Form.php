@@ -52,6 +52,27 @@ class Form
                 return '<p style="color:red;">' . __('Security check failed. Please try again.', 'dl-woo-rma') . '</p>';
             }
 
+            $rma_ids = $this->create_rmas($order);
+
+            if (!empty($rma_ids)) {
+                echo '<p>' . sprintf(__('RMA requests created successfully: %s', 'dl-woo-rma'), implode(', ', $rma_ids)) . '</p>';
+            }
+
+        } else {
+
+            echo $this->render_product_selection_step($order, true);
+        }
+
+        return '';
+    }
+
+    /**
+     * Crea los RMA para los productos seleccionados
+     * @param mixed $order
+     * @return int[]
+     * @author Daniel Lucia
+     */
+    private function create_rmas($order):array {
             $rma = new RMA();
             $selected_products = $this->process_selected_products($_GET['rma_products']);
             $order_id = $order->get_id();
@@ -68,16 +89,7 @@ class Form
                 $rma_ids[] = $rma_id;
             }
 
-            if (!empty($rma_ids)) {
-                echo '<p>' . sprintf(__('RMA requests created successfully: %s', 'dl-woo-rma'), implode(', ', $rma_ids)) . '</p>';
-            }
-
-        } else {
-
-            echo $this->render_product_selection_step($order, true);
-        }
-
-        return '';
+            return $rma_ids;
     }
 
     /**
