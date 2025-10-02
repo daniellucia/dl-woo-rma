@@ -59,17 +59,19 @@ class Form
             $reason = isset($_GET['rma_action']) ? sanitize_text_field($_GET['rma_action']) : '';
             $comments = isset($_GET['rma_comment']) ? sanitize_textarea_field($_GET['rma_comment']) : '';
 
+            $rma_ids = [];
             foreach ($selected_products as $item) {
                 $product_id = is_array($item) && isset($item['id']) ? intval($item['id']) : 0;
                 $index = is_array($item) && isset($item['i']) ? intval($item['i']) : 0;
 
                 $rma_id = $rma->create($order_id, $customer_id, $product_id, $index,  $reason, $comments);
-                if ($rma_id === 0) {
-                    echo '<p style="color:red;">' . __('An RMA request for one of the selected products already exists.', 'dl-woo-rma') . '</p>';
-                } else {
-                    echo '<p>' . sprintf(__('RMA request created for product ID %d with RMA ID %d.', 'dl-woo-rma'), $product_id, $rma_id) . '</p>';
-                }
+                $rma_ids[] = $rma_id;
             }
+
+            if (!empty($rma_ids)) {
+                echo '<p>' . sprintf(__('RMA requests created successfully: %s', 'dl-woo-rma'), implode(', ', $rma_ids)) . '</p>';
+            }
+
         } else {
 
             echo $this->render_product_selection_step($order, true);
