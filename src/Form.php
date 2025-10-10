@@ -40,6 +40,10 @@ class Form
             echo $this->render_product_selection_step($order);
         } elseif ($step === 2 && !empty($_GET['rma_products'])) {
 
+            if(!$this->validate_products($_GET['rma_products'], $order)) {
+                return '<p style="color:red;">' . __('Invalid product selection. Please try again.', 'dl-woo-rma') . '</p>';
+            }
+
             if (!$this->validate_nonce($_GET['dl_woo_rma_nonce_step1'], 'dl_woo_rma_step1')) {
                 return '<p style="color:red;">' . __('Security check failed. Please try again.', 'dl-woo-rma') . '</p>';
             }
@@ -64,6 +68,31 @@ class Form
         }
 
         return '';
+    }
+
+    /**
+     * Valida que los productos seleccionados pertenezcan al pedido
+     * @param mixed $selected_products
+     * @param mixed $order
+     * @return bool
+     * @author Daniel Lucia
+     */
+    private function validate_products($selected_products, $order): bool {
+        $valid_product_ids = [];
+        foreach ($order->get_items() as $item_id => $item) {
+            $valid_product_ids[] = strval($item_id);
+            $data = ['id' => intval($item->get_product_id()), 'i' => intval($item->get_quantity())];
+            $encoded = base64_encode(json_encode($data));
+            $valid_product_ids[] = $encoded;
+        }
+
+        foreach ($selected_products as $item) {
+            if (!in_array($item, $valid_product_ids, true)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
