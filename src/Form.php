@@ -106,23 +106,23 @@ class Form
      * @author Daniel Lucia
      */
     private function create_rmas($order):array {
-            $rma = new RMA();
-            $selected_products = $this->process_selected_products($_GET['rma_products']);
-            $order_id = $order->get_id();
-            $customer_id = $order->get_customer_id();
-            $reason = isset($_GET['rma_action']) ? sanitize_text_field($_GET['rma_action']) : '';
-            $comments = isset($_GET['rma_comment']) ? sanitize_textarea_field($_GET['rma_comment']) : '';
+        $rma = new RMA();
+        $selected_products = $this->process_selected_products($_GET['rma_products']);
+        $order_id = $order->get_id();
+        $customer_id = $order->get_customer_id();
+        $reason = isset($_GET['rma_action']) ? sanitize_text_field($_GET['rma_action']) : '';
+        $comments = isset($_GET['rma_comment']) ? sanitize_textarea_field($_GET['rma_comment']) : '';
 
-            $rma_ids = [];
-            foreach ($selected_products as $item) {
-                $product_id = is_array($item) && isset($item['id']) ? intval($item['id']) : 0;
-                $index = is_array($item) && isset($item['i']) ? intval($item['i']) : 0;
+        $rma_ids = [];
+        foreach ($selected_products as $item) {
+            $product_id = is_array($item) && isset($item['id']) ? intval($item['id']) : 0;
+            $index = is_array($item) && isset($item['i']) ? intval($item['i']) : 0;
 
-                $rma_id = $rma->create($order_id, $customer_id, $product_id, $index,  $reason, $comments);
-                $rma_ids[] = $rma_id;
-            }
+            $rma_id = $rma->create($order_id, $customer_id, $product_id, $index,  $reason, $comments);
+            $rma_ids[] = $rma_id;
+        }
 
-            return $rma_ids;
+        return $rma_ids;
     }
 
     /**
