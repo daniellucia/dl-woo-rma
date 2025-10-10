@@ -35,6 +35,8 @@ class Form
 
         echo '<h2>' . sprintf(__('RMA Request for Order #%d', 'dl-woo-rma'), $order_id) . '</h2>';
 
+        do_action('dl_woo_rma_before_form', $order, $step);
+        
         if ($step === 1) {
 
             echo $this->render_product_selection_step($order);
